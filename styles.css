@@ -5486,3 +5486,231 @@ img[src*="IMG_4638"]:hover{
   text-transform:uppercase;
   line-height:1.45;
 }
+/* ===============================
+   SHNK MOBILE RESPONSIVE PATCH
+================================ */
+
+@media (max-width: 760px){
+
+  body{
+    overflow-x:hidden;
+  }
+
+  .site-header{
+    height:68px;
+  }
+
+  .logo-mark{
+    left:-28px;
+    width:170px;
+    transform:translateY(-35%);
+  }
+
+  .logo-mark img{
+    width:165px;
+  }
+
+  nav{
+    right:14px;
+    left:auto;
+    transform:translateY(-50%);
+    gap:18px;
+  }
+
+  nav a{
+    font-size:9px;
+    letter-spacing:.22em;
+  }
+
+  .hero{
+    min-height:100svh;
+    padding:110px 22px 90px;
+    align-items:flex-end;
+  }
+
+  .hero-image{
+    background-position:center;
+  }
+
+  .hero-copy{
+    max-width:100%;
+  }
+
+  h1{
+    font-size:clamp(58px,18vw,88px);
+    line-height:.86;
+  }
+
+  .lede{
+    font-size:17px;
+    line-height:1.5;
+  }
+
+  .hero-hotspot,
+  .hero-index,
+  .hero-measurements,
+  .object-meta{
+    display:none;
+  }
+
+  .archive-section,
+  .systems-section,
+  .objects-section{
+    padding:96px 20px;
+  }
+
+  .archive-row{
+    grid-template-columns:1fr;
+    gap:14px;
+    padding:26px 0;
+  }
+
+  .archive-thumb{
+    justify-self:start;
+    width:130px;
+    max-height:90px;
+  }
+
+  .study-modules{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .study-module{
+    min-height:auto;
+    padding:28px;
+  }
+
+  .study-preview,
+  .study-thumb{
+    min-height:180px;
+  }
+
+  .materials-thumb{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    padding:22px;
+  }
+
+  .material-chip{
+    font-size:.9rem;
+    letter-spacing:.12em;
+  }
+
+  .objects-head h2,
+  .section-heading h2{
+    font-size:clamp(48px,16vw,78px);
+    line-height:.92;
+  }
+
+  .object-flow{
+    overflow-x:auto;
+    justify-content:flex-start;
+  }
+
+  .object-systems-ledger,
+  .specimen-ledger{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  .specimen-card,
+  .specimen-card-large{
+    padding:20px;
+  }
+
+  .specimen-index{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+  }
+
+  .specimen-media,
+  .specimen-media-duo,
+  .specimen-media-stack{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    min-height:auto;
+  }
+
+  .specimen-media img,
+  .specimen-media-duo img,
+  .specimen-media-stack img{
+    width:100%;
+    height:auto;
+    max-height:none;
+    object-fit:contain;
+  }
+
+  .object-brand-card .specimen-media-stack img{
+    max-height:180px;
+  }
+
+  .object-vessel-card .specimen-media-duo img,
+  .object-book-card .specimen-media-duo img{
+    height:auto;
+    object-fit:contain;
+  }
+
+  .specimen-record h3{
+    font-size:clamp(38px,13vw,62px);
+    line-height:.92;
+  }
+
+  .evidence-chain{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .evidence-chain i{
+    display:none;
+  }
+
+  .specimen-meta{
+    grid-template-columns:1fr;
+  }
+
+  .egg-content,
+  .study-modal-content{
+    width:94vw;
+    margin:70px auto;
+    padding:34px 22px;
+  }
+
+  .egg-gallery-grid{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .egg-card img{
+    height:auto;
+    max-height:420px;
+    object-fit:cover;
+  }
+
+  .player-card{
+    padding:22px;
+  }
+
+  .player-card-top,
+  .record-content{
+    grid-template-columns:1fr;
+  }
+
+  .player-info h3{
+    font-size:clamp(46px,15vw,76px);
+  }
+
+  .player-stats{
+    grid-template-columns:1fr;
+  }
+
+  .material-group-grid,
+  .material-archive-panel{
+    grid-template-columns:1fr;
+    max-height:none;
+  }
+}
