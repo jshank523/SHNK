@@ -1,0 +1,5488 @@
+:root{
+  --black:#050606;
+  --graphite:#101316;
+  --graphite2:#1b2024;
+  --paper:#f4eee2;
+  --paper2:#d8d0bd;
+  --muted:#aaa49a;
+  --accent:#d6aa55;
+  --rust:#93634d;
+  --line:rgba(244,238,226,.16);
+  --darkline:rgba(5,6,6,.18);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--black);
+  color:var(--paper);
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x:hidden;
+}
+
+.grain,.grid-overlay{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.grain{
+  z-index:60;
+  opacity:.025;
+}
+
+.grid-overlay{
+  z-index:3;
+  opacity:.035;
+}
+
+.cursor-glow{
+  position:fixed;
+  z-index:2;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(214,170,85,.14), transparent 64%);
+  transform:translate(-50%,-50%);
+}
+
+.site-header{
+  position:fixed;
+  z-index:50;
+  top:0;
+  left:0;
+  right:0;
+  height:78px;
+  display:flex;
+  align-items:center;
+  padding:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(5,6,6,.58),
+    rgba(5,6,6,.18),
+    transparent
+  );
+  backdrop-filter:blur(8px);
+}
+
+.logo-mark{
+  position:absolute;
+  left:-10px;      /* was 18px */
+  top:50%;
+  transform:translateY(-30%);
+
+  width:250px;
+  height:58px;
+
+  display:flex;
+  align-items:center;
+  z-index:60;
+  
+}
+
+.logo-mark img{
+  display:block;
+  width:235px;
+  height:auto;
+  object-fit:contain;
+  pointer-events:none;
+}
+
+.logo-mark::before{
+  display:none;
+}
+nav{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+
+  display:flex;
+  gap:54px;
+  align-items:center;
+}
+nav a{
+  position:relative;
+  color:rgba(244,238,226,.78);
+  text-decoration:none;
+  text-transform:uppercase;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.42em;
+  padding:12px 0;
+
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:0;
+  height:3px;
+  transform:translateX(-50%);
+  background:repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 3px,
+    transparent 3px 7px
+  );
+  transition:width .22s ease;
+}
+
+nav a:hover{
+  color:var(--paper);
+}
+
+nav a:hover::after{
+  width:42px;
+}
+
+.frame{
+  border-bottom:1px solid var(--line);
+}
+
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+
+  padding-top:110px;
+  padding-bottom:90px;
+
+  padding-left:clamp(60px,5vw,90px);
+  padding-right:clamp(22px,7vw,112px);
+}
+
+.hero-image{
+  position:absolute;
+  inset:0;
+  z-index:0;
+
+  background-image:url("assets/snk-river-photo.jpg");
+  background-size:cover;
+  background-position:62% center;
+
+  transform:none;
+
+  filter:
+    brightness(.98)
+    contrast(1.28)
+    saturate(.75);
+}
+
+.hero-shade{
+  position:absolute;
+  inset:0;
+  z-index:1;
+
+    background:
+    linear-gradient(
+      90deg,
+      rgba(5,6,6,.55) 0%,
+      rgba(5,6,6,.22) 35%,
+      rgba(5,6,6,.05) 65%,
+      rgba(5,6,6,.12) 100%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(5,6,6,.05) 0%,
+      transparent 50%,
+      rgba(5,6,6,.35) 100%
+    );
+}
+
+.hero-measurements{
+  position:absolute;
+  z-index:6;
+
+  top:170px;
+  right:clamp(22px,7vw,112px);
+
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:5px;
+
+  color:var(--accent);
+
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:.2em;
+
+  text-decoration:none;
+  cursor:pointer;
+
+  transition:
+    color .25s ease,
+    transform .25s ease,
+    opacity .25s ease;
+}
+
+.hero-measurements:hover{
+  color:var(--paper);
+  transform:translateY(-2px);
+}
+
+.hero-measurements:hover span{
+  color:var(--paper);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  z-index:4;
+  left:clamp(22px,4vw,72px);
+  top:108px;
+  width:8px;
+  height:86%;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(244,238,226,.34) 0 1px,
+    transparent 1px 12px
+  );
+  opacity:.38;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at 55% 82%,
+      rgba(255,255,255,.08),
+      transparent 20%
+    );
+}
+.hero-copy{
+  position:relative;
+  z-index:6;
+  max-width:770px;
+
+  backdrop-filter:blur(1px);
+}
+
+.eyebrow{
+  margin:0 0 22px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:13px;
+  letter-spacing:.28em;
+  font-weight:800;
+}
+
+h1,h2,h3,p{margin-top:0}
+
+h1{
+  font-size:clamp(64px,10vw,150px);
+  line-height:.84;
+  letter-spacing:-.08em;
+
+  text-shadow:
+    0 2px 6px rgba(0,0,0,.22);
+}
+
+h2{
+  margin-bottom:26px;
+  font-size:clamp(58px,9vw,138px);
+  line-height:.82;
+  letter-spacing:-.085em;
+}
+
+h3{
+  margin-bottom:14px;
+  font-size:clamp(25px,3vw,42px);
+  letter-spacing:-.05em;
+}
+
+.lede,
+.cinematic-copy p,
+.releases-section p,
+.system-card p{
+  color:rgba(244,238,226,.75);
+  max-width:700px;
+  font-size:22px;
+  line-height:1.6;
+}
+
+.hero-link{
+  display:flex;
+  width:min(330px, 100%);
+  justify-content:space-between;
+  align-items:center;
+  margin-top:38px;
+  padding:0 0 16px;
+  border-bottom:1px solid rgba(214,170,85,.82);
+  color:var(--paper);
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:12px;
+  font-weight:900;
+}
+
+.hero-link b{
+  color:var(--accent);
+  font-weight:900;
+}
+
+.hero-index{
+  position:absolute;
+  right:clamp(22px,6vw,90px);
+  top:49%;
+  z-index:6;
+  display:grid;
+  gap:28px;
+  color:rgba(244,238,226,.72);
+  font-size:12px;
+  letter-spacing:.14em;
+}
+
+.hero-index span{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.hero-index i{
+  width:42px;
+  height:1px;
+  background:rgba(244,238,226,.5);
+}
+
+.hero-index span:first-child i,
+.hero-index span:last-child i{
+  background:var(--accent);
+}
+
+.hero-river-link{
+  position:absolute;
+  left:50%;
+  bottom:44px;
+  z-index:10;
+
+  width:75px;
+  height:75px;
+
+  transform:translateX(-50%);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+}
+
+.hero-river-icon{
+  display:block;
+  width:75px;
+  height:auto;
+  opacity:.82;
+  pointer-events:none;
+
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.35));
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    filter .25s ease;
+}
+
+.hero-river-link:hover .hero-river-icon{
+  opacity:1;
+  transform:translateY(-3px) scale(1.06);
+  filter:
+    drop-shadow(0 0 12px rgba(214,170,85,.45))
+    drop-shadow(0 0 24px rgba(214,170,85,.25));
+}
+
+.object-meta,
+.system-readout,
+.hero-measurements{
+  position:absolute;
+  z-index:6;
+  display:flex;
+  gap:22px;
+  color:rgba(244,238,226,.68);
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:.2em;
+}
+
+.object-meta{
+  right:clamp(22px,7vw,112px);
+  bottom:36px;
+}
+
+.object-meta span:nth-child(2),
+.object-meta span:nth-child(3){
+  color:var(--accent);
+}
+
+.system-readout{
+  left:clamp(22px,7vw,112px);
+  bottom:36px;
+  align-items:center;
+}
+
+.system-readout i{
+  width:46px;
+  height:1px;
+  background:rgba(244,238,226,.55);
+}
+
+.hero-measurements{
+  right:clamp(22px,7vw,112px);
+  top:190px;
+  color:var(--accent);
+  flex-direction:column;
+  gap:5px;
+  align-items:flex-end;
+}
+
+.archive-section{
+  min-height:100vh;
+  padding:130px clamp(22px,7vw,112px);
+  background:#eef0ec;
+  color:var(--black);
+}
+
+.archive-list{
+  border-top:1px solid var(--darkline);
+}
+
+.archive-row{
+  min-height:132px;
+  display:grid;
+  grid-template-columns:140px 1.2fr 1fr 120px 150px;
+  gap:24px;
+  align-items:center;
+  border-bottom:1px solid var(--darkline);
+}
+
+.archive-id,
+.archive-category,
+.archive-status{
+  color:rgba(5,6,6,.55);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.2em;
+}
+
+.archive-category{
+  font-style:normal;
+}
+
+.archive-status{
+  color:var(--rust);
+  font-weight:900;
+}
+
+.archive-title{
+  color:var(--black);
+  font-size:clamp(22px,2.5vw,40px);
+  line-height:1;
+  letter-spacing:.04em;
+  font-weight:650;
+  text-transform:uppercase;
+}
+
+.archive-thumb{
+  justify-self:end;
+  width:170px;
+  max-height:100px;
+  object-fit:contain;
+  opacity:.85;
+}
+
+.cinematic-section{
+  position:relative;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:60px;
+  align-items:center;
+  padding:130px clamp(22px,7vw,112px);
+  overflow:hidden;
+}
+
+.dark{
+  background:#070808;
+}
+
+.massive-label{
+  position:absolute;
+  right:-5vw;
+  top:6vh;
+  color:rgba(241,236,223,.04);
+  font-size:18vw;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-.08em;
+}
+
+.cinematic-copy{
+  position:relative;
+  z-index:3;
+}
+
+.text-link{
+  display:inline-block;
+  margin-top:20px;
+  color:var(--paper);
+  text-decoration:none;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.22em;
+  padding-bottom:8px;
+  border-bottom:1px solid currentColor;
+}
+
+.cad-stage{
+  position:relative;
+  min-height:640px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(rgba(241,236,223,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241,236,223,.035) 1px, transparent 1px);
+  background-size:44px 44px;
+  transform:perspective(900px) rotateY(-8deg);
+}
+
+.cad-stage > div{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%) rotate(-4deg);
+  border:1px solid rgba(241,236,223,.55);
+}
+
+.cad-ring{top:100px;width:430px;height:110px;border-radius:50%}
+.cad-body{top:245px;width:520px;height:260px}
+.cad-panel{
+  top:335px;
+  width:230px;
+  height:72px;
+  display:grid;
+  place-items:center;
+  color:var(--paper);
+  letter-spacing:.24em;
+  font-weight:950;
+}
+.cad-base{top:500px;width:660px;height:80px}
+
+.light{
+  background:
+    radial-gradient(circle at 84% 12%, rgba(147,99,77,.18), transparent 24%),
+    #eef0ec;
+  color:var(--black);
+}
+
+.systems-section{
+  min-height:100vh;
+  padding:130px clamp(22px,7vw,112px);
+}
+
+.section-heading{
+  margin-bottom:52px;
+}
+
+.systems-section .eyebrow,
+.releases-section .eyebrow{color:var(--rust)}
+
+.system-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.system-card{
+  position:relative;
+  min-height:480px;
+  padding:30px;
+  border:1px solid var(--darkline);
+  background:rgba(255,255,255,.34);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+
+.system-card span{
+  position:absolute;
+  top:28px;
+  left:30px;
+  color:rgba(5,6,6,.55);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.2em;
+}
+
+.system-card p{color:rgba(5,6,6,.66)}
+.dark-card{background:#111418;color:var(--paper)}
+.dark-card p{color:rgba(241,236,223,.68)}
+.dark-card span{color:rgba(241,236,223,.52)}
+
+.river-symbol{
+  position:absolute;
+  top:85px;
+  left:50%;
+  width:100px;
+  height:265px;
+  transform:translateX(-50%) rotate(28deg);
+  background:var(--black);
+  clip-path:polygon(66% 0%,100% 5%,53% 38%,88% 48%,38% 100%,0% 94%,45% 58%,12% 49%);
+}
+
+.mountain-symbol{
+  position:absolute;
+  top:105px;
+  left:50%;
+  width:210px;
+  height:140px;
+  transform:translateX(-50%);
+  background:var(--paper);
+  clip-path:polygon(0 100%,28% 55%,42% 72%,58% 20%,100% 100%,72% 100%,57% 62%,44% 100%);
+}
+
+.material-strip{
+  position:absolute;
+  top:110px;
+  left:30px;
+  right:30px;
+  height:180px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.material-strip i:nth-child(1){background:#111}
+.material-strip i:nth-child(2){background:linear-gradient(135deg,#777,#ddd,#555)}
+.material-strip i:nth-child(3){background:#31363a}
+.material-strip i:nth-child(4){background:#c7a96b}
+
+.philosophy-section{
+  min-height:70vh;
+  display:grid;
+  place-items:center;
+  padding:120px clamp(22px,7vw,112px);
+  background:#101316;
+}
+
+.philosophy-section blockquote{
+  margin:0;
+  max-width:1100px;
+  font-size:clamp(38px,6vw,88px);
+  line-height:.98;
+  letter-spacing:-.065em;
+  text-align:center;
+}
+
+.releases-section{
+  min-height:88vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  padding:130px clamp(22px,7vw,112px);
+  background:linear-gradient(135deg,#f1ecdf,#bfc4c0);
+  color:var(--black);
+}
+
+.releases-section p{color:rgba(5,6,6,.66)}
+
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  padding:0 26px;
+  color:var(--paper);
+  background:var(--black);
+  border:1px solid var(--black);
+  text-decoration:none;
+  text-transform:uppercase;
+  font-weight:950;
+  font-size:12px;
+  letter-spacing:.2em;
+  white-space:nowrap;
+}
+
+.disabled{opacity:.48;pointer-events:none}
+
+footer{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:32px clamp(22px,5vw,74px);
+  background:#050606;
+  color:rgba(241,236,223,.58);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.2em;
+}
+.archive-thumb{
+  cursor:pointer;
+}
+
+.image-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  place-items:center;
+  background:rgba(5,6,6,.86);
+  backdrop-filter:blur(12px);
+}
+
+.image-modal.is-open{
+  display:grid;
+}
+
+.image-modal img{
+  max-width:min(900px,82vw);
+  max-height:72vh;
+  object-fit:contain;
+}
+
+.image-modal p{
+  margin-top:22px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.22em;
+}
+
+.modal-close{
+  position:absolute;
+  top:28px;
+  right:34px;
+  background:none;
+  border:0;
+  color:var(--paper);
+  font-size:38px;
+  cursor:pointer;
+}
+.archive-thumb{
+  cursor:pointer;
+}
+
+.image-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  place-items:center;
+  background:rgba(5,6,6,.86);
+  backdrop-filter:blur(12px);
+}
+
+.image-modal.is-open{
+  display:grid;
+}
+
+.image-modal img{
+  max-width:min(900px,82vw);
+  max-height:72vh;
+  object-fit:contain;
+}
+
+.image-modal p{
+  margin-top:22px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.22em;
+}
+
+.modal-close{
+  position:absolute;
+  top:28px;
+  right:34px;
+  background:none;
+  border:0;
+  color:var(--paper);
+  font-size:38px;
+  cursor:pointer;
+}
+
+.hero-hotspot{
+  position:absolute;
+  z-index:9;
+  display:block;
+  width:120px;
+  height:120px;
+  border:1px solid transparent;
+  border-radius:50%;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.hero-hotspot span{
+  position:absolute;
+  left:50%;
+  bottom:100%;
+  transform:translateX(-50%) translateY(8px);
+  opacity:0;
+  pointer-events:none;
+  color:var(--accent);
+  background:rgba(5,6,6,.72);
+  border:1px solid rgba(214,170,85,.35);
+  padding:8px 10px;
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:.22em;
+  white-space:nowrap;
+  transition:.22s ease;
+}
+
+.hero-hotspot:hover{
+  border-color:rgba(214,170,85,.55);
+  background:radial-gradient(circle, rgba(214,170,85,.14), transparent 88%);
+}
+
+.hero-hotspot:hover span{
+  opacity:1;
+  transform:translateX(-50%) translateY(-8px);
+}
+
+.hotspot-inspiration{
+  left:60%;
+  top:55%;
+}
+
+.hotspot-river{
+  left:75%;
+  bottom:15%;
+}
+
+.hotspot-peak{
+  left:67%;
+  top:20%;
+}
+@media(max-width:900px){
+  nav{gap:14px;overflow-x:auto}
+  nav a{font-size:10px}
+  .hero{
+    align-items:flex-end;
+    padding-top:110px;
+  }
+  .hero-shade{
+    background:
+      linear-gradient(90deg, rgba(5,6,6,.9), rgba(5,6,6,.48)),
+      linear-gradient(180deg, rgba(5,6,6,.42), transparent 35%, rgba(5,6,6,.74));
+  }
+  .hero-index,
+  .hero-measurements,
+  .hero-river-icon{
+    display:none;
+  }
+  .cinematic-section,
+  .system-grid,
+  .releases-section{
+    grid-template-columns:1fr;
+    display:grid;
+  }
+  .archive-item{
+    grid-template-columns:1fr;
+    padding:28px 0;
+  }
+  .object-meta,.system-readout{
+    position:absolute;
+    flex-wrap:wrap;
+  }
+  .object-meta{
+    right:22px;
+    bottom:22px;
+  }
+  .system-readout{
+    left:22px;
+    bottom:22px;
+  }
+  .releases-section{
+    align-items:start;
+  }
+  footer{
+    flex-direction:column;
+  }
+  .hero-index button{
+  all:unset;
+  display:flex;
+  gap:18px;
+  align-items:center;
+  cursor:pointer;
+  color:rgba(244,238,226,.72);
+  font-size:12px;
+  letter-spacing:.14em;
+}
+
+.hero-index button i{
+  width:42px;
+  height:1px;
+  background:rgba(244,238,226,.5);
+}
+
+.hero-index button:hover{
+  color:var(--accent);
+}
+
+
+
+.modal.is-open{
+  display:grid;
+}
+
+.modal img{
+  max-width:min(680px,80vw);
+  max-height:70vh;
+  object-fit:contain;
+}
+
+.modal p{
+  margin-top:24px;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:12px;
+}
+
+.modal-close{
+  position:absolute;
+  top:26px;
+  right:34px;
+  background:none;
+  border:0;
+  color:var(--paper);
+  font-size:36px;
+  cursor:pointer;
+}
+.archive-item{
+  position:relative;
+  overflow:hidden;
+}
+
+
+.image-item:hover img{
+  opacity:.9;
+  transform:translateY(-50%) scale(1.04);
+}
+
+
+.image-item img{
+  position:absolute;
+  right:clamp(24px,6vw,110px);
+  top:50%;
+  width:140px;
+  max-height:72px;
+  object-fit:contain;
+  transform:translateY(-50%);
+  opacity:.45;
+  pointer-events:none;
+  transition:.25s ease;
+}
+
+.image-item:hover img{
+  opacity:.9;
+  transform:translateY(-50%) scale(1.08);
+}
+.archive-thumb{
+  cursor:pointer;
+}
+
+.image-modal{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  display:none;
+  place-items:center;
+  background:rgba(5,6,6,.86);
+  backdrop-filter:blur(12px);
+}
+
+.image-modal.is-open{
+  display:grid;
+}
+
+.image-modal img{
+  max-width:min(900px,82vw);
+  max-height:72vh;
+  object-fit:contain;
+}
+
+.image-modal p{
+  margin-top:22px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.22em;
+}
+
+.modal-close{
+  position:absolute;
+  top:28px;
+  right:34px;
+  background:none;
+  border:0;
+  color:var(--paper);
+  font-size:38px;
+  cursor:pointer;
+}
+/* Removed invalid HTML block from CSS. Move that section into index.html if needed. */
+
+}
+.hero-hotspot {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+/* ==================================
+   ARCHIVE POPUP
+================================== */
+
+/* ==================================
+   INSPIRATION ARCHIVE
+================================== */
+
+.egg-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:none;
+
+  background:rgba(5,6,6,.88);
+  backdrop-filter:blur(20px);
+
+  overflow-y:auto;
+}
+
+.egg-modal.active{
+  display:block;
+}
+
+.egg-content{
+  width:min(1600px,92vw);
+  margin:4vh auto;
+
+  padding:clamp(40px,5vw,90px);
+
+  background:rgba(8,11,13,.94);
+
+  border:1px solid rgba(214,170,85,.28);
+}
+
+.egg-close{
+  position:absolute;
+  top:28px;
+  right:28px;
+
+  background:none;
+  border:0;
+
+  color:var(--accent);
+  font-size:42px;
+  line-height:1;
+
+  cursor:pointer;
+  z-index:100;
+}
+.egg-content h2{
+  margin-bottom:40px;
+
+  font-size:clamp(70px,8vw,140px);
+
+  line-height:.9;
+
+  letter-spacing:-.07em;
+}
+
+.egg-section{
+  margin-top:60px;
+}
+
+.egg-section h3{
+  margin-bottom:24px;
+
+  color:var(--accent);
+
+  text-transform:uppercase;
+
+  letter-spacing:.32em;
+
+  font-size:12px;
+}
+
+.egg-gallery-grid{
+  display:grid;
+
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.egg-card{
+  background:#0c0f11;
+
+  border:1px solid rgba(214,170,85,.18);
+
+  overflow:hidden;
+}
+
+.egg-card img{
+  width:100%;
+  height:500px;
+
+  object-fit:cover;
+
+  display:block;
+}
+
+.egg-card div{
+  padding:18px;
+}
+
+.egg-card strong{
+  display:block;
+
+  color:var(--paper);
+
+  text-transform:uppercase;
+
+  letter-spacing:.16em;
+
+  font-size:11px;
+}
+
+.egg-card p{
+  margin-top:10px;
+
+  color:rgba(244,238,226,.66);
+
+  font-size:14px;
+
+  line-height:1.6;
+}
+.egg-card {
+  cursor: pointer;
+}
+
+.record-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: none;
+  background: rgba(5, 6, 6, 0.92);
+  backdrop-filter: blur(18px);
+  padding: 5vh 5vw;
+  overflow-y: auto;
+}
+
+.record-modal.active {
+  display: block;
+}
+
+.record-content {
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.record-info {
+  position: sticky;
+  top: 48px;
+  padding-top: 12px;
+}
+
+.record-info h2 {
+  font-size: clamp(42px, 5vw, 84px);
+  line-height: 0.9;
+  margin-bottom: 24px;
+}
+
+.record-info p:not(.eyebrow) {
+  color: rgba(244, 238, 226, 0.7);
+  line-height: 1.7;
+}
+
+.record-content img {
+  width: 100%;
+  max-height: 86vh;
+  object-fit: contain;
+  border: 1px solid rgba(214, 170, 85, 0.24);
+}
+
+.record-close{
+  position:absolute;
+  top:24px;
+  right:24px;
+
+  background:none;
+  border:0;
+
+  color:#93634d;
+  font-size:42px;
+  line-height:1;
+
+  cursor:pointer;
+  z-index:100;
+}
+
+@media(max-width: 900px) {
+  .record-content {
+    grid-template-columns: 1fr;
+  }
+
+  .record-info {
+    position: static;
+  }
+}
+.egg-caption {
+  display: block;
+  margin-top: 0.4rem;
+
+  font-size: 0.72rem;
+  line-height: 1.5;
+
+  color: rgba(255,255,255,0.55);
+}
+#recordCaption {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(214,170,85,.28);
+  color: rgba(244,238,226,.58);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.player-card{
+  max-width:1300px;
+
+  background:#f4eee2;
+
+  border:8px solid #d6aa55;
+
+  padding:36px;
+
+  box-shadow:
+    0 20px 80px rgba(0,0,0,.35);
+
+  color:#111;
+}
+
+.player-card-top{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:42px;
+}
+.player-card-header,
+.player-lower {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.player-card-header {
+  margin-bottom: 28px;
+  color: #93634d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .22em;
+}
+
+.player-lower {
+  margin-top: 38px;
+}
+
+.player-report {
+  flex: 1.3;
+}
+
+.player-grades {
+  flex: .8;
+}
+
+.player-report h4,
+.player-grades h4 {
+  color: #93634d;
+  font-size: 12px;
+  letter-spacing: .22em;
+  margin-bottom: 16px;
+}
+
+.player-report p,
+.player-report li {
+  color: #222;
+  line-height: 1.65;
+}
+
+.grade {
+  margin-bottom: 18px;
+}
+
+.grade span {
+  color: #222;
+  font-weight: 700;
+}
+
+.grade b {
+  float: right;
+  color: #111;
+}
+
+.bar {
+  clear: both;
+  height: 9px;
+  margin-top: 8px;
+  background: #d8d0bf;
+}
+
+.bar div {
+  height: 100%;
+  background: #d6aa55;
+}
+
+@media (max-width: 900px) {
+  .player-lower,
+  .player-card-header {
+    flex-direction: column;
+  }
+}
+.player-photo{
+  background:#111;
+  border:2px solid #d6aa55;
+  overflow:hidden;
+}
+
+.player-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.player-code{
+  color:#93634d;
+  letter-spacing:.35em;
+  font-size:12px;
+  font-weight:800;
+}
+
+.player-info h3{
+  color:#111;
+  font-size:clamp(72px,8vw,140px);
+  line-height:.85;
+  margin:16px 0;
+}
+
+.player-position{
+  color:#444;
+  font-size:24px;
+  margin-bottom:24px;
+}
+
+.player-meta{
+  display:grid;
+  gap:10px;
+
+  color:#666;
+
+  text-transform:uppercase;
+  letter-spacing:.12em;
+
+  font-size:12px;
+}
+
+.player-stats{
+  margin-top:40px;
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  border:1px solid rgba(0,0,0,.12);
+}
+
+.player-stats div{
+  padding:22px;
+  border-right:1px solid rgba(0,0,0,.12);
+}
+
+.player-stats b{
+  display:block;
+
+  color:#93634d;
+
+  margin-bottom:10px;
+
+  letter-spacing:.18em;
+
+  font-size:11px;
+}
+
+.player-stats span{
+  color:#111;
+
+  font-size:18px;
+
+  font-weight:700;
+}
+.player-card{
+  background:
+    linear-gradient(
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.04)
+    ),
+    #f4eee2;
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.35);
+
+  position:relative;
+}
+
+.player-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,.015) 21px
+    );
+}
+.scouting-report{
+  margin-top:40px;
+}
+
+.grade{
+  margin-bottom:18px;
+}
+
+.grade span{
+  display:block;
+  margin-bottom:8px;
+
+  font-size:12px;
+  letter-spacing:.15em;
+
+  color:#555;
+
+  text-transform:uppercase;
+}
+
+.bar{
+  height:8px;
+  background:#d9d2c2;
+}
+
+.bar div{
+  height:100%;
+  background:#d6aa55;
+}
+.archive-extra{
+  display:none;
+}
+
+.archive-load{
+  display:block;
+  width:100%;
+  margin:32px auto 0;
+  padding:18px 24px;
+  border:1px solid rgba(0,0,0,.12);
+  background:none;
+  color:#111;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.archive-load:hover{
+  background:#111;
+  color:#fff;
+}
+.objects-section {
+  min-height: 100vh;
+  padding: 140px 8vw;
+  background: #090b0b;
+  color: #f4efe4;
+}
+
+.objects-head {
+  max-width: 1050px;
+  margin-bottom: 110px;
+}
+
+.objects-head h2 {
+  font-size: clamp(64px, 12vw, 180px);
+  line-height: .85;
+  letter-spacing: -.08em;
+  margin: 0;
+}
+
+.objects-head p {
+  max-width: 560px;
+  color: rgba(244,239,228,.65);
+  font-size: 18px;
+  line-height: 1.6;
+}
+.object-shelf {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.object-feature{
+  overflow:hidden;
+}
+.object-feature h3 {
+  font-size: 34px;
+  line-height: 1;
+  margin: 24px 0 12px;
+}
+
+.object-feature p {
+  color: rgba(244,239,228,.65);
+  line-height: 1.5;
+}
+
+
+.fabrication-section{
+    padding:120px 8%;
+    background:#f4f1ea;
+    color:#111;
+}
+
+.fabrication-header{
+    margin-bottom:120px;
+}
+
+.fabrication-header h1{
+    font-size:clamp(5rem,10vw,9rem);
+    line-height:.9;
+    margin:20px 0;
+    font-weight:700;
+}
+
+.section-tag{
+    font-size:.8rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color:#9d6f54;
+}
+
+.section-description{
+    max-width:550px;
+    font-size:1.1rem;
+    line-height:1.6;
+    opacity:.7;
+}
+
+.fabrication-log{
+    display:flex;
+    flex-direction:column;
+    gap:60px;
+}
+
+.fab-card{
+    border-top:1px solid rgba(0,0,0,.15);
+    padding-top:40px;
+}
+
+.fab-meta{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+    font-size:.85rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:#9d6f54;
+}
+
+.fab-card h2{
+    font-size:3rem;
+    margin-bottom:40px;
+}
+
+.fab-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    margin-bottom:50px;
+}
+
+.fab-grid label{
+    display:block;
+    font-size:.75rem;
+    letter-spacing:.15em;
+    color:#9d6f54;
+    margin-bottom:8px;
+}
+
+.fab-grid p{
+    font-size:1.1rem;
+    font-weight:600;
+}
+
+.fab-process{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    font-size:.85rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    border-top:1px solid rgba(0,0,0,.1);
+    padding-top:20px;
+}
+@media (max-width: 900px) {
+  .object-shelf {
+    grid-template-columns: 1fr;
+  }
+}
+.fabrication-section {
+  min-height: 100vh;
+  padding: 140px 8vw;
+  background:
+    linear-gradient(rgba(8,9,9,.88), rgba(8,9,9,.96)),
+    url("assets/fabrication-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #f4efe4;
+}
+
+.fab-head {
+  max-width: 850px;
+  margin-bottom: 90px;
+}
+
+.fab-head h2 {
+  font-size: clamp(64px, 12vw, 170px);
+  line-height: .85;
+  letter-spacing: -.08em;
+  margin: 0;
+}
+
+.fab-head p {
+  max-width: 560px;
+  color: rgba(244,239,228,.68);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.fab-board {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr .9fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.fab-record {
+  min-height: 420px;
+  padding: 28px;
+  border: 1px solid rgba(214,170,85,.35);
+  background:
+    linear-gradient(135deg, rgba(214,170,85,.08), transparent 45%),
+    rgba(10,12,12,.82);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fab-record:first-child {
+  min-height: 560px;
+}
+
+.fab-record span {
+  color: #d6aa55;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .22em;
+}
+
+.fab-record h3 {
+  font-size: clamp(38px, 5vw, 72px);
+  line-height: .9;
+  margin: 24px 0;
+}
+
+.fab-record p {
+  color: rgba(244,239,228,.68);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.fab-record b {
+  color: #d6aa55;
+  font-size: 11px;
+  letter-spacing: .2em;
+}
+
+@media (max-width: 900px) {
+  .fab-board {
+    grid-template-columns: 1fr;
+  }
+
+  .fab-record,
+  .fab-record:first-child {
+    min-height: 360px;
+  }
+}
+.studies-intro .eyebrow{
+  font-size:26px;
+  letter-spacing:.4em;
+  font-weight:900;
+}
+.studies-intro h2{
+    font-size:clamp(80px,9vw,160px);
+    line-height:.9;
+}
+/* ===============================
+   SECTION BACKGROUNDS / FLOW FIX
+================================ */
+
+.archive-section{
+  background:#eef0ec;
+  color:var(--black);
+   padding-bottom:40px;
+}
+
+.systems-section.light{
+  background:
+    linear-gradient(180deg, #eef0ec 0%, #f4f1ea 100%);
+  color:var(--black);
+  padding-top:90px;
+  padding-bottom:220px;
+}
+
+.systems-section .section-heading{
+  max-width:1100px;
+}
+
+.systems-section .lede{
+  color:rgba(5,6,6,.56);
+}
+
+/* OBJECTS = DARK ARTIFACT CATALOG */
+
+.objects-section{
+  min-height:100vh;
+  padding:180px 8vw;
+  background:#050606;
+  color:#f4efe4;
+}
+
+.objects-label,
+.fabrication-label{
+  font-size:32px;
+  letter-spacing:.42em;
+  font-weight:900;
+}
+
+.objects-head h2{
+    font-size:clamp(90px,10vw,180px);
+}
+/* FABRICATION = LIGHT BUILD SHEET */
+
+.fabrication-section{
+  min-height:100vh;
+  padding:180px 8vw;
+  background:
+    linear-gradient(180deg, #e6ddcd 0%, #d8d0bd 100%);
+  color:#111;
+}
+
+.fabrication-header h1,
+.fab-head h2{
+  color:#111;
+}
+
+.fabrication-header p,
+.fab-head p,
+.section-description{
+  color:rgba(5,6,6,.62);
+}
+.fabrication-label{
+    font-size:24px;
+    letter-spacing:.35em;
+    font-weight:900;
+    color:#93634d;
+}
+
+.fabrication-header h1{
+    font-size:clamp(90px,10vw,180px);
+}
+.fab-card{
+  border-top:1px solid rgba(5,6,6,.2);
+  color:#111;
+}
+
+.fab-meta,
+.fab-grid label,
+.section-tag{
+  color:#93634d;
+}
+
+.fab-process{
+  border-top:1px solid rgba(5,6,6,.14);
+}
+.systems-section{
+  min-height:auto;
+  padding:100px clamp(22px,7vw,112px) 120px;
+}
+
+.system-grid{
+  margin-top:60px;
+}
+
+.objects-section{
+  padding-top:180px;
+}
+
+.fabrication-section{
+  padding-top:180px;
+}
+
+.fabrication-log{
+  margin-top:90px;
+  background:rgba(255,255,255,.28);
+  border:1px solid rgba(5,6,6,.12);
+  padding:36px;
+}
+.archive-section{
+    padding-bottom:80px;
+}
+
+.studies-intro{
+    padding-top:180px;
+}
+.studies-intro h2{
+    font-size:clamp(52px,8vw,120px);
+    line-height:.9;
+    letter-spacing:-.06em;
+    max-width:1100px;
+}
+
+
+.section-break{
+  position:relative;
+  height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #eef0ec 0%,
+      #e7e1d6 55%,
+      #f4f1ea 100%
+    );
+
+  border-top:1px solid rgba(5,6,6,.06);
+  border-bottom:1px solid rgba(5,6,6,.06);
+}
+
+.section-break span{
+  position:relative;
+  z-index:2;
+
+  color:#93634d;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.55em;
+  text-transform:uppercase;
+}
+
+.section-break span::before,
+.section-break span::after{
+  content:"";
+  display:inline-block;
+  width:86px;
+  height:1px;
+  background:currentColor;
+  opacity:.35;
+  vertical-align:middle;
+  margin:0 22px;
+}
+
+/* =========================================================
+   SHNK CLEANUP PATCH — TYPOGRAPHY / TRANSITIONS / FLOW
+   Additions below intentionally override earlier duplicate rules.
+========================================================= */
+
+/* safer global headline rhythm */
+h1{
+  line-height:.92;
+}
+
+h2{
+  line-height:.92;
+}
+
+/* archive → studies transition */
+.archive-section{
+  background:#eef0ec;
+  color:var(--black);
+  padding-bottom:60px;
+}
+
+.section-break{
+  height:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(
+      180deg,
+      #eef0ec 0%,
+      #ece9df 45%,
+      #f4f1ea 100%
+    );
+  border-top:1px solid rgba(5,6,6,.06);
+  border-bottom:1px solid rgba(5,6,6,.06);
+}
+
+.section-break span{
+  color:#93634d;
+  letter-spacing:.42em;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+/* studies: smaller, cleaner, not clipped */
+.systems-section,
+.systems-section.light,
+.studies-intro{
+  background:
+    radial-gradient(circle at 84% 12%, rgba(147,99,77,.11), transparent 26%),
+    linear-gradient(180deg, #f4f1ea 0%, #f6f3ec 100%);
+  color:var(--black);
+}
+
+.systems-section{
+  min-height:auto;
+  padding:120px clamp(22px,7vw,112px) 130px;
+}
+
+.studies-intro{
+  padding-top:120px;
+}
+
+.studies-intro h2,
+.systems-section .section-heading h2{
+  font-size:clamp(58px,7vw,112px);
+  line-height:.94;
+  letter-spacing:-.065em;
+  max-width:1050px;
+}
+
+.studies-intro .eyebrow,
+.systems-section .eyebrow{
+  font-size:12px;
+  letter-spacing:.34em;
+  font-weight:900;
+  color:#93634d;
+}
+
+.studies-intro .lede,
+.systems-section .lede{
+  max-width:680px;
+  font-size:clamp(17px,1.4vw,21px);
+  line-height:1.65;
+  color:rgba(5,6,6,.58);
+}
+
+/* studies cards */
+.system-grid{
+  margin-top:64px;
+}
+
+.system-card h3{
+  font-size:clamp(34px,3vw,52px);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+
+.system-card p{
+  font-size:17px;
+  line-height:1.6;
+}
+
+/* objects = dark vault / catalog */
+.objects-section{
+  min-height:100vh;
+  padding:180px 8vw 150px;
+  background:#050606;
+  color:#f4efe4;
+}
+
+.objects-head{
+  max-width:1050px;
+  margin-bottom:96px;
+}
+
+.objects-head h2{
+  font-size:clamp(72px,8vw,140px);
+  line-height:.92;
+  letter-spacing:-.075em;
+}
+
+.objects-head p{
+  font-size:18px;
+  line-height:1.65;
+}
+
+.object-feature{
+  border:2px solid rgba(214,170,85,.34);
+  transition:transform .25s ease, border-color .25s ease;
+}
+
+.object-feature:hover{
+  transform:translateY(-12px);
+  border-color:rgba(214,170,85,.8);
+}
+
+/* fabrication = build sheet / workshop document */
+.fabrication-section{
+  min-height:100vh;
+  padding:170px 8vw 150px;
+  background:
+    linear-gradient(180deg, #e8e0d0 0%, #d8d0bd 100%);
+  color:#111;
+}
+
+.fabrication-header{
+  margin-bottom:90px;
+}
+
+.fabrication-header h1,
+.fab-head h2{
+  font-size:clamp(64px,7vw,118px);
+  line-height:.94;
+  letter-spacing:-.06em;
+  color:#111;
+}
+
+.fabrication-header p,
+.fab-head p,
+.section-description{
+  max-width:620px;
+  font-size:18px;
+  line-height:1.65;
+  color:rgba(5,6,6,.62);
+}
+
+.fabrication-log{
+  margin-top:70px;
+  background:#f4eee2;
+  border:3px solid #d6aa55;
+  box-shadow:0 24px 70px rgba(0,0,0,.16);
+  padding:36px;
+}
+
+.fab-card h2{
+  font-size:clamp(34px,4vw,58px);
+  line-height:.95;
+}
+
+.fab-grid p{
+  line-height:1.35;
+}
+
+/* avoid OS/browser bottom clipping on giant type */
+.section-heading,
+.objects-head,
+.fabrication-header,
+.fab-head{
+  overflow:visible;
+}
+
+/* responsive scale */
+@media (max-width:900px){
+  .section-break{
+    height:72px;
+  }
+
+  .systems-section,
+  .systems-section.light,
+  .studies-intro,
+  .objects-section,
+  .fabrication-section{
+    padding-left:24px;
+    padding-right:24px;
+  }
+
+  .studies-intro h2,
+  .systems-section .section-heading h2,
+  .objects-head h2,
+  .fabrication-header h1,
+  .fab-head h2{
+    font-size:clamp(54px,6vw,96px);
+  line-height:.95;
+    letter-spacing:-.055em;
+  }
+
+  .system-grid,
+  .object-shelf,
+  .fab-grid{
+    grid-template-columns:1fr;
+  }
+
+  .archive-row{
+    grid-template-columns:1fr;
+    padding:28px 0;
+  }
+
+  .archive-thumb{
+    justify-self:start;
+    width:150px;
+  }
+}
+
+/* =========================================================
+   SHNK SECTION TRANSITIONS — STUDIES → OBJECTS → FABRICATION
+   Add these transition divs in your HTML between sections:
+   <div class="section-transition transition-studies-objects"><span>OBJECTS</span></div>
+   <div class="section-transition transition-objects-fabrication"><span>FABRICATION</span></div>
+========================================================= */
+
+.section-transition span{
+  position:relative;
+  z-index:2;
+
+  padding:0;
+
+  background:none;
+  border:none;
+
+  color:var(--accent);
+
+  font-size:clamp(54px,6vw,96px);
+  font-weight:900;
+  letter-spacing:.22em;
+  line-height:1;
+  text-transform:uppercase;
+
+  text-shadow:
+    0 0 30px rgba(214,170,85,.15);
+}
+
+.transition-studies-objects{
+    background:#f4f1ea;
+}
+
+.transition-objects-fabrication{
+    background:#050606;
+}
+
+.section-transition span{
+    font-size:clamp(54px,6vw,96px);
+
+    font-weight:900;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+
+    border:none;
+    background:none;
+
+    color:var(--accent);
+}
+
+.transition-objects-fabrication span{
+    color:#f4eee2;
+}
+
+.section-transition::before,
+.section-transition::after{
+    display:none;
+}
+
+/* Let Objects start immediately after the dark transition */
+.transition-studies-objects + .objects-section{
+  padding-top:130px;
+}
+
+/* Objects black vault fades into fabrication drafting paper */
+.transition-objects-fabrication{
+  background:
+    linear-gradient(
+      180deg,
+      #050606 0%,
+      #111111 25%,
+      #3b342b 55%,
+      #d2c7b2 85%,
+      #e8e0d0 100%
+    );
+}
+
+.transition-objects-fabrication::before{
+  background:
+    radial-gradient(circle at 50% 70%, rgba(214,170,85,.16), transparent 34%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 1px, transparent 1px 18px);
+}
+
+.transition-objects-fabrication span{
+  color:#f4eee2;
+}
+
+/* Let Fabrication feel connected to the warm transition */
+.transition-objects-fabrication + .fabrication-section{
+  padding-top:130px;
+}
+
+/* Optional: make the chapter label feel like a system readout */
+.section-transition span::before,
+.section-transition span::after{
+  content:"";
+  display:inline-block;
+  width:54px;
+  height:1px;
+  background:currentColor;
+  opacity:.35;
+  vertical-align:middle;
+  margin:0 18px;
+}
+
+@media (max-width:900px){
+  .section-transition{
+    min-height:120px;
+  }
+
+  .section-transition span::before,
+  .section-transition span::after{
+    width:28px;
+    margin:0 10px;
+  }
+
+  .transition-studies-objects + .objects-section,
+  .transition-objects-fabrication + .fabrication-section{
+    padding-top:90px;
+  }
+}
+
+
+/* =========================================================
+   SHNK TRANSITION POLISH PATCH — STATIC CLASSIFICATION SEAMS
+   Replaces the moving fog transitions with tighter archive-style chapter gates.
+========================================================= */
+
+.section-transition{
+  position:relative;
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+/* remove any previous moving fog behavior */
+.section-transition::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  animation:none !important;
+  transform:none !important;
+  z-index:0;
+}
+
+
+
+/* studies → objects: cream paper folds into black vault */
+.transition-studies-objects{
+  background:
+    linear-gradient(
+      180deg,
+      #f6f3ec 0%,
+      #eee8dc 32%,
+      #827867 49%,
+      #121211 64%,
+      #050606 100%
+    );
+}
+
+.transition-studies-objects::before{
+  background:
+    radial-gradient(
+      ellipse at 50% 48%,
+      rgba(214,170,85,.20) 0%,
+      rgba(214,170,85,.10) 18%,
+      transparent 42%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(214,170,85,.10) 50%,
+      transparent 100%
+    );
+}
+
+/* objects → fabrication: black vault opens into drafting paper */
+.transition-objects-fabrication{
+  background:
+    linear-gradient(
+      180deg,
+      #050606 0%,
+      #0b0b0a 28%,
+      #4a4134 52%,
+      #c9bfa9 72%,
+      #e8e0d0 100%
+    );
+}
+
+.transition-objects-fabrication::before{
+  background:
+    radial-gradient(
+      ellipse at 50% 55%,
+      rgba(214,170,85,.18) 0%,
+      rgba(214,170,85,.08) 22%,
+      transparent 46%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,.025) 0 1px,
+      transparent 1px 18px
+    );
+}
+
+/* classification label */
+.section-transition span{
+  position:relative;
+  z-index:2;
+  padding:0 18px;
+  background:rgba(5,6,6,.72);
+  color:#d6aa55;
+  border:1px solid rgba(214,170,85,.22);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.44em;
+  text-transform:uppercase;
+  line-height:1;
+  text-shadow:none;
+}
+
+.transition-objects-fabrication span{
+  background:rgba(5,6,6,.78);
+  color:#f4eee2;
+}
+
+/* tighten section handoffs */
+.systems-section.light,
+.systems-section{
+  padding-bottom:96px;
+}
+
+.transition-studies-objects + .objects-section{
+  padding-top:118px;
+}
+
+.objects-section{
+  padding-bottom:116px;
+}
+
+.transition-objects-fabrication + .fabrication-section{
+  padding-top:118px;
+}
+
+/* prevent huge empty viewport before the first transition */
+.archive-section{
+  padding-bottom:44px;
+}
+
+/* reduce headline clipping in the sections after transitions */
+.objects-head h2,
+.fabrication-header h1,
+.fab-head h2{
+  line-height:.96;
+  overflow:visible;
+}
+
+/* mobile */
+@media (max-width:900px){
+  .section-transition{
+    min-height:64px;
+  }
+
+  .section-transition span{
+    font-size:9px;
+    letter-spacing:.30em;
+    padding:0 12px;
+  }
+
+  .transition-studies-objects + .objects-section,
+  .transition-objects-fabrication + .fabrication-section{
+    padding-top:84px;
+  }
+}
+
+/* =========================================================
+   SHNK FINAL SECTION LABEL FIX
+   Makes OBJECTS and FABRICATION transitions match STUDIES:
+   centered, contained, smaller, polished chapter dividers.
+========================================================= */
+
+.section-transition{
+  position:relative;
+  min-height:120px;
+  height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.transition-studies-objects{
+  background:
+    linear-gradient(
+      180deg,
+      #f6f3ec 0%,
+      #eee8dc 38%,
+      #d8d0bd 63%,
+      #050606 100%
+    );
+}
+
+.transition-objects-fabrication{
+  background:
+    linear-gradient(
+      180deg,
+      #050606 0%,
+      #1a1917 38%,
+      #c9bfa9 72%,
+      #e8e0d0 100%
+    );
+}
+
+.section-transition::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  animation:none !important;
+  transform:none !important;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(214,170,85,.14),
+      transparent 46%
+    );
+}
+
+.section-transition::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  z-index:1;
+  height:1px;
+  background:rgba(214,170,85,.22);
+}
+
+.section-transition span{
+  position:relative;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  gap:18px;
+  padding:0 22px;
+  background:transparent;
+  border:0;
+  color:#93634d;
+  font-size:clamp(13px,1vw,16px);
+  font-weight:900;
+  letter-spacing:.55em;
+  line-height:1;
+  text-transform:uppercase;
+  text-shadow:none;
+}
+
+.transition-studies-objects span{
+  color:#d6aa55;
+}
+
+.transition-objects-fabrication span{
+  color:#f4eee2;
+}
+
+.section-transition span::before,
+.section-transition span::after{
+  content:"";
+  display:block;
+  width:clamp(56px,7vw,120px);
+  height:1px;
+  margin:0;
+  background:currentColor;
+  opacity:.38;
+}
+
+.transition-studies-objects + .objects-section,
+.transition-objects-fabrication + .fabrication-section{
+  padding-top:130px;
+}
+
+.objects-label,
+.fabrication-label,
+.studies-intro .eyebrow,
+.systems-section .eyebrow{
+  font-size:12px;
+  letter-spacing:.34em;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.objects-label{
+  color:#d6aa55;
+}
+
+.fabrication-label{
+  color:#93634d;
+}
+
+@media (max-width:900px){
+  .section-transition{
+    min-height:82px;
+    height:82px;
+  }
+
+  .section-transition span{
+    font-size:10px;
+    letter-spacing:.34em;
+    gap:10px;
+    padding:0 12px;
+  }
+
+  .section-transition span::before,
+  .section-transition span::after{
+    width:32px;
+  }
+}
+
+/* =========================================================
+   SHNK FINAL UNIFIED SECTION LABELS
+   Makes STUDIES, OBJECTS, and FABRICATION use the same polished
+   contained chapter-divider treatment.
+   Keep this block at the very bottom of styles.css.
+========================================================= */
+
+/* Shared chapter divider structure */
+
+/* SHNK Section Divider Upgrade */
+
+.section-break{
+  height:150px;
+  border:none !important;
+  position:relative;
+  overflow:hidden;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(147,99,77,.10), transparent 44%),
+    linear-gradient(
+      180deg,
+      #eef0ec 0%,
+      #eee8dc 48%,
+      #f4f1ea 100%
+    );
+}
+
+.section-break span{
+  position:relative;
+  z-index:2;
+
+  color:var(--rust);
+  font-size:clamp(28px,3vw,48px);
+  font-weight:900;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+}
+
+.section-break span::before,
+.section-break span::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:120px;
+  height:1px;
+  background:currentColor;
+  opacity:.28;
+}
+
+.section-break span::before{
+  right:calc(100% + 24px);
+}
+
+.section-break span::after{
+  left:calc(100% + 24px);
+}
+
+/* stronger section eyebrow labels */
+.eyebrow,
+.section-tag{
+    font-size:18px !important;
+    letter-spacing:.35em !important;
+    font-weight:900 !important;
+}
+
+/* reduce dead space before next sections */
+.systems-section{
+    padding-bottom:120px !important;
+}
+
+
+/* Archive → Studies: soft paper seam */
+.section-break{
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(147,99,77,.08), transparent 45%),
+    linear-gradient(
+      180deg,
+      #eef0ec 0%,
+      #eee9df 48%,
+      #f4f1ea 100%
+    );
+}
+
+/* Studies → Objects: paper enters black vault */
+.transition-studies-objects{
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(214,170,85,.12), transparent 42%),
+    linear-gradient(
+      180deg,
+      #f6f3ec 0%,
+      #eee8dc 34%,
+      #d8d0bd 58%,
+      #e8e0d0 100%
+    );
+}
+
+/* Objects → Fabrication: black vault opens into build sheet */
+.transition-objects-fabrication{
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(214,170,85,.11), transparent 46%),
+    linear-gradient(
+      180deg,
+      #050606 0%,
+      #171614 36%,
+      #c9bfa9 72%,
+      #e8e0d0 100%
+    );
+}
+
+
+.section-transition::after{
+  background:rgba(214,170,85,.22);
+}
+
+/* Kill old fog/motion pseudo-elements */
+.section-break::before,
+.section-transition::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  animation:none !important;
+  transform:none !important;
+  background:none !important;
+}
+
+/* Unified label style */
+.section-break span,
+.section-transition span{
+  position:relative;
+  z-index:2;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+
+  padding:0 22px;
+  background:transparent !important;
+  border:0 !important;
+
+  color:#93634d;
+  font-size:clamp(13px,1vw,16px) !important;
+  font-weight:900;
+  line-height:1;
+  letter-spacing:.55em !important;
+  text-transform:uppercase;
+  text-shadow:none !important;
+  white-space:nowrap;
+}
+
+.transition-studies-objects span{
+  color:#d6aa55;
+}
+
+.transition-objects-fabrication span{
+  color:#f4eee2;
+}
+
+.section-break span::before,
+.section-break span::after,
+.section-transition span::before,
+.section-transition span::after{
+  content:"";
+  display:block;
+  width:clamp(56px,7vw,120px);
+  height:1px;
+  margin:0;
+  background:currentColor;
+  opacity:.38;
+}
+
+/* Section spacing after dividers */
+.section-break + .systems-section,
+.section-break + .systems-section.light{
+  padding-top:120px;
+}
+
+.transition-studies-objects + .objects-section,
+.transition-objects-fabrication + .fabrication-section{
+  padding-top:130px;
+}
+
+/* Make the actual section identifiers pop, but not compete */
+.systems-section .eyebrow,
+.objects-head .eyebrow,
+.fabrication-header .section-tag,
+.section-tag{
+  font-size:clamp(12px,1vw,15px) !important;
+  letter-spacing:.38em !important;
+  font-weight:900 !important;
+  text-transform:uppercase;
+}
+
+.systems-section .eyebrow{
+  color:#93634d !important;
+}
+
+.objects-head .eyebrow{
+  color:#d6aa55 !important;
+}
+
+.fabrication-header .section-tag,
+.section-tag{
+  color:#93634d !important;
+}
+
+/* Prevent large headline clipping */
+h1,h2,
+.studies-intro h2,
+.systems-section .section-heading h2,
+.objects-head h2,
+.fabrication-header h1,
+.fab-head h2{
+  line-height:.96 !important;
+  overflow:visible;
+}
+
+/* Tighten excess dead space around section handoffs */
+.archive-section{
+  padding-bottom:44px !important;
+}
+
+.systems-section,
+.systems-section.light{
+  padding-bottom:110px !important;
+}
+
+.objects-section{
+  padding-bottom:116px !important;
+}
+
+@media (max-width:900px){
+  .section-break,
+  .section-transition{
+    height:84px;
+    min-height:84px;
+  }
+
+  .section-break span,
+  .section-transition span{
+    font-size:10px !important;
+    letter-spacing:.34em !important;
+    gap:10px;
+    padding:0 12px;
+  }
+
+  .section-break span::before,
+  .section-break span::after,
+  .section-transition span::before,
+  .section-transition span::after{
+    width:32px;
+  }
+
+  .section-break + .systems-section,
+  .section-break + .systems-section.light,
+  .transition-studies-objects + .objects-section,
+  .transition-objects-fabrication + .fabrication-section{
+    padding-top:84px !important;
+  }
+}
+.study-modules{
+  margin-top:90px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.study-module{
+  min-height:520px;
+  padding:32px;
+  border:1px solid rgba(5,6,6,.14);
+  background:rgba(255,255,255,.28);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.study-module span{
+  color:#93634d;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.28em;
+}
+
+.study-module h3{
+  font-size:clamp(34px,3vw,56px);
+  line-height:.95;
+}
+
+.study-module p{
+  color:rgba(5,6,6,.58);
+  line-height:1.6;
+}
+
+.study-preview{
+  min-height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(5,6,6,.12);
+  font-weight:900;
+  letter-spacing:.2em;
+}
+
+.mark-preview{
+  font-size:64px;
+}
+
+.code-preview{
+  font-size:18px;
+  line-height:2;
+  color:#93634d;
+}
+
+.material-preview{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.material-preview i{
+  height:180px;
+  display:block;
+}
+
+.material-preview i:nth-child(1){background:#111;}
+.material-preview i:nth-child(2){background:#d6aa55;}
+.material-preview i:nth-child(3){background:#93634d;}
+.material-preview i:nth-child(4){background:#c9c2b4;}
+
+@media(max-width:900px){
+  .study-modules{
+    grid-template-columns:1fr;
+  }
+}
+/* STUDIES TRANSITION */
+.transition-studies{
+  position:relative;
+  height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(160,110,85,.08) 0%,
+      rgba(160,110,85,.04) 25%,
+      transparent 70%
+    );
+
+  overflow:hidden;
+}
+
+.transition-studies span{
+  position:relative;
+  z-index:2;
+
+  font-size:clamp(1.1rem,1vw,1.4rem);
+  letter-spacing:.45em;
+  text-transform:uppercase;
+  font-weight:700;
+
+  color:#9a6a52;
+}
+
+.transition-studies::before,
+.transition-studies::after{
+  content:"";
+  width:120px;
+  height:1px;
+  background:rgba(154,106,82,.35);
+  position:absolute;
+  top:50%;
+}
+
+.transition-studies::before{
+  left:calc(50% - 220px);
+}
+
+.transition-studies::after{
+  right:calc(50% - 220px);
+}
+
+
+/* =========================================================
+   SHNK STUDIES PAGE + SECTION TRANSITION UPDATE
+   Keep this block at the VERY BOTTOM of styles.css.
+   This overrides older duplicate transition rules above.
+========================================================= */
+
+/* ---------- Unified divider structure ---------- */
+
+.section-break,
+.section-transition,
+.transition-studies{
+  position:relative !important;
+  height:150px !important;
+  min-height:150px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  overflow:hidden !important;
+  isolation:isolate;
+  border:none !important;
+}
+
+/* Archive → Studies */
+.section-break,
+.transition-studies{
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(147,99,77,.10), transparent 44%),
+    linear-gradient(
+      180deg,
+      #eef0ec 0%,
+      #eee8dc 48%,
+      #f4f1ea 100%
+    ) !important;
+}
+
+/* Studies → Objects */
+.transition-studies-objects{
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(214,170,85,.12), transparent 42%),
+    linear-gradient(
+      180deg,
+      #f6f3ec 0%,
+      #eee8dc 34%,
+      #d8d0bd 58%,
+      #050606 100%
+    ) !important;
+}
+
+/* Objects → Fabrication */
+.transition-objects-fabrication{
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(214,170,85,.11), transparent 46%),
+    linear-gradient(
+      180deg,
+      #050606 0%,
+      #171614 36%,
+      #c9bfa9 72%,
+      #e8e0d0 100%
+    ) !important;
+}
+
+/* Kill old full-width lines / fog effects */
+.section-break::before,
+.section-break::after,
+.section-transition::before,
+.section-transition::after,
+.transition-studies::before,
+.transition-studies::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* Unified labels */
+.section-break span,
+.section-transition span,
+.transition-studies span{
+  position:relative !important;
+  z-index:2 !important;
+
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:22px !important;
+
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+
+  color:#93634d !important;
+  font-size:clamp(18px,1.5vw,26px) !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  letter-spacing:.48em !important;
+  text-transform:uppercase !important;
+  text-shadow:none !important;
+  white-space:nowrap !important;
+}
+
+.transition-studies-objects span{
+  color:#d6aa55 !important;
+}
+
+.transition-objects-fabrication span{
+  color:#f4eee2 !important;
+}
+
+/* Short side ticks only, no full line through the whole section */
+.section-break span::before,
+.section-break span::after,
+.section-transition span::before,
+.section-transition span::after,
+.transition-studies span::before,
+.transition-studies span::after{
+  content:"" !important;
+  display:block !important;
+  width:clamp(56px,7vw,120px) !important;
+  height:1px !important;
+  margin:0 !important;
+  background:currentColor !important;
+  opacity:.34 !important;
+}
+
+/* ---------- Studies section build-out ---------- */
+
+.systems-section,
+.systems-section.light{
+  min-height:auto !important;
+  padding:120px clamp(22px,7vw,112px) 120px !important;
+
+  background:
+    radial-gradient(circle at 84% 12%, rgba(147,99,77,.10), transparent 26%),
+    linear-gradient(180deg, #f4f1ea 0%, #f6f3ec 100%) !important;
+
+  color:#050606 !important;
+}
+
+.systems-section .section-heading{
+  max-width:1120px !important;
+  margin-bottom:0 !important;
+}
+
+.systems-section .eyebrow{
+  display:inline-block;
+  margin-bottom:28px !important;
+  color:#93634d !important;
+  font-size:clamp(13px,1vw,16px) !important;
+  letter-spacing:.38em !important;
+  font-weight:900 !important;
+  text-transform:uppercase !important;
+}
+
+.systems-section .section-heading h2{
+  max-width:1050px !important;
+  margin-bottom:28px !important;
+
+  font-size:clamp(68px,8vw,132px) !important;
+  line-height:.94 !important;
+  letter-spacing:-.07em !important;
+  color:#050606 !important;
+}
+
+.systems-section .lede{
+  max-width:700px !important;
+  color:rgba(5,6,6,.58) !important;
+  font-size:clamp(18px,1.35vw,22px) !important;
+  line-height:1.65 !important;
+}
+
+/* New 3-column module system */
+.study-modules{
+  margin-top:90px !important;
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+  gap:24px !important;
+}
+
+.study-module{
+  min-height:540px !important;
+  padding:32px !important;
+
+  border:1px solid rgba(5,6,6,.14) !important;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.42), rgba(255,255,255,.16)),
+    rgba(255,255,255,.22) !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:space-between !important;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease !important;
+}
+
+.study-module:hover{
+  transform:translateY(-8px);
+  border-color:rgba(147,99,77,.36) !important;
+  box-shadow:0 24px 70px rgba(5,6,6,.08);
+}
+
+.study-module > span{
+  color:#93634d !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  letter-spacing:.28em !important;
+  text-transform:uppercase !important;
+}
+
+.study-module h3{
+  margin:34px 0 14px !important;
+  color:#050606 !important;
+  font-size:clamp(36px,3vw,58px) !important;
+  line-height:.94 !important;
+  letter-spacing:-.055em !important;
+}
+
+.study-module p{
+  color:rgba(5,6,6,.60) !important;
+  font-size:16px !important;
+  line-height:1.65 !important;
+}
+
+.study-preview{
+  min-height:190px !important;
+  margin-top:36px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  border:1px solid rgba(5,6,6,.12) !important;
+  background:rgba(244,238,226,.55) !important;
+
+  font-weight:900 !important;
+  letter-spacing:.2em !important;
+}
+
+.mark-preview{
+  color:#050606 !important;
+  font-size:clamp(48px,4vw,76px) !important;
+}
+
+.code-preview{
+  color:#93634d !important;
+  font-size:18px !important;
+  line-height:2 !important;
+  text-align:center !important;
+}
+
+.material-preview{
+  margin-top:36px !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,1fr) !important;
+  gap:10px !important;
+}
+
+.material-preview i{
+  height:190px !important;
+  display:block !important;
+  border:1px solid rgba(5,6,6,.08) !important;
+}
+
+.material-preview i:nth-child(1){background:#111 !important;}
+.material-preview i:nth-child(2){background:#d6aa55 !important;}
+.material-preview i:nth-child(3){background:#93634d !important;}
+.material-preview i:nth-child(4){background:#c9c2b4 !important;}
+
+/* ---------- Section handoff spacing ---------- */
+
+.archive-section{
+  padding-bottom:44px !important;
+}
+
+.section-break + .systems-section,
+.section-break + .systems-section.light,
+.transition-studies + .systems-section,
+.transition-studies + .systems-section.light{
+  padding-top:120px !important;
+}
+
+.transition-studies-objects + .objects-section,
+.transition-objects-fabrication + .fabrication-section{
+  padding-top:130px !important;
+}
+
+/* ---------- Headline clipping fix ---------- */
+
+h1,
+h2,
+.studies-intro h2,
+.systems-section .section-heading h2,
+.objects-head h2,
+.fabrication-header h1,
+.fab-head h2{
+  line-height:.96 !important;
+  overflow:visible !important;
+}
+
+/* ---------- Responsive ---------- */
+
+@media(max-width:900px){
+  .section-break,
+  .section-transition,
+  .transition-studies{
+    height:92px !important;
+    min-height:92px !important;
+  }
+
+  .section-break span,
+  .section-transition span,
+  .transition-studies span{
+    font-size:11px !important;
+    letter-spacing:.34em !important;
+    gap:10px !important;
+  }
+
+  .section-break span::before,
+  .section-break span::after,
+  .section-transition span::before,
+  .section-transition span::after,
+  .transition-studies span::before,
+  .transition-studies span::after{
+    width:32px !important;
+  }
+
+  .systems-section,
+  .systems-section.light{
+    padding:84px 24px 90px !important;
+  }
+
+  .systems-section .section-heading h2{
+    font-size:clamp(52px,14vw,76px) !important;
+  }
+
+  .study-modules{
+    grid-template-columns:1fr !important;
+    gap:18px !important;
+    margin-top:60px !important;
+  }
+
+  .study-module{
+    min-height:420px !important;
+  }
+}
+.study-module{
+  cursor:pointer;
+}
+
+.study-modal{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  background:rgba(5,6,6,.86);
+  backdrop-filter:blur(18px);
+  overflow-y:auto;
+}
+
+.study-modal.active{
+  display:block;
+}
+
+.study-modal-content{
+  width:min(1200px,90vw);
+  margin:5vh auto;
+  padding:clamp(40px,6vw,90px);
+  background:#f4f1ea;
+  color:#050606;
+  border:6px solid #d6aa55;
+}
+
+.study-close{
+  position:fixed;
+  top:24px;
+  right:34px;
+  z-index:10001;
+  background:none;
+  border:0;
+  color:#f4eee2;
+  font-size:48px;
+  cursor:pointer;
+}
+
+.study-modal-content h2{
+  font-size:clamp(64px,8vw,130px);
+  line-height:.9;
+  letter-spacing:-.07em;
+}
+
+.study-modal-content > p{
+  max-width:760px;
+  font-size:20px;
+  line-height:1.65;
+  color:rgba(5,6,6,.65);
+}
+
+.study-detail-grid{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.study-detail{
+  border:1px solid rgba(5,6,6,.14);
+  padding:24px;
+  min-height:220px;
+}
+
+.study-detail span{
+  color:#93634d;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.25em;
+}
+
+.study-detail h3{
+  margin-top:28px;
+  font-size:32px;
+}
+
+.study-detail p{
+  color:rgba(5,6,6,.62);
+  line-height:1.55;
+}
+
+@media(max-width:900px){
+  .study-detail-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* =========================================================
+   SHNK ARCHIVE IMAGE VIEWER UPGRADE
+   Keep this at the VERY BOTTOM of styles.css.
+   Turns archive / inspiration records into a larger museum-style viewer.
+========================================================= */
+
+/* Archive thumbnails feel clickable */
+.archive-thumb,
+.egg-card img,
+.object-feature img{
+  cursor:zoom-in;
+}
+
+/* Small hover response in archive rows */
+.archive-row{
+  transition:
+    background .22s ease,
+    transform .22s ease,
+    border-color .22s ease;
+}
+
+.archive-row:hover{
+  background:rgba(214,170,85,.055);
+}
+
+.archive-row:hover .archive-thumb{
+  opacity:1;
+  transform:scale(1.04);
+}
+
+.archive-thumb{
+  transition:
+    opacity .22s ease,
+    transform .22s ease,
+    filter .22s ease;
+}
+
+/* Legacy simple image modal — larger, cleaner image viewer */
+.image-modal{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:100000 !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:clamp(24px,4vw,64px) !important;
+
+  background:
+    radial-gradient(ellipse at center, rgba(214,170,85,.10), transparent 44%),
+    rgba(5,6,6,.94) !important;
+
+  backdrop-filter:blur(18px) !important;
+
+  opacity:0 !important;
+  pointer-events:none !important;
+  transition:opacity .28s ease !important;
+}
+
+.image-modal.is-open{
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+.image-modal img{
+  max-width:min(1300px,88vw) !important;
+  max-height:82vh !important;
+  width:auto !important;
+  height:auto !important;
+
+  object-fit:contain !important;
+
+  border:1px solid rgba(214,170,85,.28);
+  background:#050606;
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.65),
+    0 0 0 1px rgba(244,238,226,.05);
+}
+
+.image-modal p{
+  position:fixed;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+
+  width:min(900px,86vw);
+  margin:0 !important;
+
+  color:#d6aa55 !important;
+  text-align:center;
+  text-transform:uppercase;
+  font-size:12px !important;
+  font-weight:900;
+  letter-spacing:.26em !important;
+  line-height:1.5;
+}
+
+/* Close button shared by simple and record viewers */
+.modal-close,
+.record-close{
+  position:fixed !important;
+  top:22px !important;
+  right:30px !important;
+  z-index:100002 !important;
+
+  width:48px;
+  height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(5,6,6,.45) !important;
+  border:1px solid rgba(244,238,226,.18) !important;
+  color:#f4eee2 !important;
+
+  font-size:38px !important;
+  line-height:1;
+  cursor:pointer;
+
+  transition:
+    color .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    transform .2s ease;
+}
+
+.modal-close:hover,
+.record-close:hover{
+  color:#d6aa55 !important;
+  border-color:rgba(214,170,85,.45) !important;
+  background:rgba(5,6,6,.72) !important;
+  transform:scale(1.04);
+}
+
+/* Museum-style record modal */
+.record-modal{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:100001 !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:clamp(18px,3vw,46px) !important;
+
+  background:
+    radial-gradient(ellipse at 68% 50%, rgba(214,170,85,.11), transparent 42%),
+    rgba(5,6,6,.94) !important;
+
+  backdrop-filter:blur(18px) !important;
+
+  overflow:auto !important;
+
+  opacity:0 !important;
+  pointer-events:none !important;
+  transition:opacity .28s ease !important;
+}
+
+.record-modal.active{
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+/* Works with your current HTML:
+   .record-content contains .record-info + img
+*/
+.record-content{
+  width:min(1640px,94vw) !important;
+  min-height:auto !important;
+  height:min(88vh,940px) !important;
+
+  display:grid !important;
+  grid-template-columns:minmax(0,1.45fr) minmax(360px,.55fr) !important;
+  gap:0 !important;
+  align-items:stretch !important;
+
+  background:#050606 !important;
+  border:1px solid rgba(214,170,85,.30) !important;
+  box-shadow:0 34px 120px rgba(0,0,0,.70) !important;
+
+  overflow:hidden !important;
+}
+
+/* Move info panel to the right visually even if it comes first in HTML */
+.record-info{
+  order:2;
+
+  position:relative !important;
+  top:auto !important;
+  height:100% !important;
+
+  padding:clamp(32px,4vw,58px) !important;
+
+  background:
+    linear-gradient(180deg, #f6f3ec 0%, #e8e0d0 100%) !important;
+  color:#050606 !important;
+
+  overflow-y:auto !important;
+  border-left:1px solid rgba(214,170,85,.28);
+}
+
+.record-content > img,
+#recordImage{
+  order:1;
+
+  width:100% !important;
+  height:100% !important;
+  max-height:none !important;
+
+  object-fit:contain !important;
+
+  padding:clamp(28px,4vw,64px);
+  background:
+    radial-gradient(ellipse at center, rgba(244,238,226,.045), transparent 52%),
+    #050606 !important;
+
+  border:0 !important;
+}
+
+/* Record type styling */
+#recordId{
+  margin-bottom:20px !important;
+
+  color:#93634d !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  letter-spacing:.35em !important;
+  text-transform:uppercase;
+}
+
+#recordTitle{
+  margin-bottom:24px !important;
+
+  color:#050606 !important;
+  font-size:clamp(44px,4.4vw,86px) !important;
+  line-height:.92 !important;
+  letter-spacing:-.07em !important;
+}
+
+#recordMeta{
+  margin-bottom:22px !important;
+
+  color:rgba(5,6,6,.62) !important;
+  font-size:17px !important;
+  line-height:1.65 !important;
+}
+
+#recordCaption{
+  margin-top:26px !important;
+  padding-top:24px !important;
+
+  border-top:1px solid rgba(147,99,77,.22) !important;
+
+  color:rgba(5,6,6,.70) !important;
+  font-size:16px !important;
+  line-height:1.7 !important;
+}
+
+.record-meta-block{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid rgba(147,99,77,.18);
+}
+
+.record-meta-block span{
+  display:block;
+  margin-bottom:8px;
+
+  color:#93634d;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+}
+
+.record-meta-block p{
+  margin:0;
+  color:rgba(5,6,6,.70);
+  font-size:15px;
+  line-height:1.65;
+}
+
+/* Optional next / prev controls if added later */
+.record-nav{
+  position:fixed;
+  top:50%;
+  z-index:100002;
+
+  width:52px;
+  height:52px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(5,6,6,.62);
+  border:1px solid rgba(214,170,85,.32);
+  color:#f4eee2;
+
+  font-size:26px;
+  cursor:pointer;
+
+  transform:translateY(-50%);
+}
+
+.record-nav:hover{
+  color:#d6aa55;
+}
+
+.record-prev{left:24px;}
+.record-next{right:24px;}
+
+@media(max-width:900px){
+  .record-modal{
+    align-items:flex-start !important;
+    padding:72px 18px 24px !important;
+  }
+
+  .record-content{
+    width:100% !important;
+    height:auto !important;
+    min-height:auto !important;
+
+    grid-template-columns:1fr !important;
+  }
+
+  .record-info{
+    order:2;
+    border-left:0;
+    border-top:1px solid rgba(214,170,85,.28);
+  }
+
+  .record-content > img,
+  #recordImage{
+    order:1;
+    height:auto !important;
+    max-height:62vh !important;
+    padding:22px;
+  }
+
+  #recordTitle{
+    font-size:clamp(42px,12vw,68px) !important;
+  }
+
+  .image-modal img{
+    max-width:92vw !important;
+    max-height:76vh !important;
+  }
+
+  .image-modal p{
+    bottom:18px;
+    font-size:10px !important;
+  }
+}
+
+/* =========================================================
+   SHNK OBJECT SPECIMEN CATALOG PATCH
+   Replaces standard object cards with an evidence/specimen system.
+========================================================= */
+
+.specimen-section{
+  position:relative;
+  padding:170px 8vw 155px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(214,170,85,.12), transparent 24%),
+    radial-gradient(circle at 78% 72%, rgba(147,99,77,.14), transparent 28%),
+    #050606;
+  color:var(--paper);
+  overflow:hidden;
+}
+
+.specimen-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.08;
+  background:
+    linear-gradient(rgba(244,238,226,.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,238,226,.18) 1px, transparent 1px);
+  background-size:52px 52px;
+}
+
+.specimen-head{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.05fr .75fr;
+  gap:54px;
+  align-items:end;
+  max-width:none;
+  margin-bottom:90px;
+}
+
+.specimen-head h2{
+  max-width:980px;
+  margin:0;
+  color:var(--paper);
+  font-size:clamp(68px,8vw,142px);
+  line-height:.88;
+  letter-spacing:-.08em;
+}
+
+.specimen-head p:not(.eyebrow){
+  max-width:580px;
+  color:rgba(244,238,226,.66);
+  font-size:18px;
+  line-height:1.7;
+}
+
+.specimen-ledger{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.18fr .82fr;
+  gap:22px;
+}
+
+.specimen-card{
+  position:relative;
+  min-height:520px;
+  padding:24px;
+  border:1px solid rgba(214,170,85,.28);
+  background:
+    linear-gradient(135deg, rgba(214,170,85,.08), transparent 38%),
+    rgba(10,13,14,.88);
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  overflow:hidden;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.specimen-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(214,170,85,.72);
+  background:
+    linear-gradient(135deg, rgba(214,170,85,.12), transparent 42%),
+    rgba(13,17,18,.94);
+}
+
+.specimen-card-large{
+  grid-row:span 2;
+  min-height:820px;
+}
+
+.specimen-index{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(214,170,85,.22);
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.24em;
+}
+
+.specimen-index b{
+  color:rgba(244,238,226,.54);
+  font-weight:800;
+}
+
+/* ==================================
+   OBJECT MEDIA
+================================== */
+
+/* ==================================
+   OBJ-001 BRAND SYSTEM
+================================== */
+
+.specimen-media-stack{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+
+  align-items:center;
+  justify-items:center;
+
+  gap:60px;
+
+  padding:60px;
+}
+
+.specimen-media-stack img:nth-child(1){
+  width:180px;
+}
+
+.specimen-media-stack img:nth-child(2){
+  width:220px;
+}
+
+.specimen-media-stack img:nth-child(3){
+  width:220px;
+}
+
+.specimen-record{
+  align-self:end;
+}
+
+.specimen-class{
+  margin-bottom:16px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.28em;
+}
+
+.specimen-record h3{
+  margin-bottom:16px;
+  color:var(--paper);
+  font-size:clamp(34px,4vw,72px);
+  line-height:.9;
+  letter-spacing:-.06em;
+}
+
+.specimen-record p:not(.specimen-class){
+  max-width:720px;
+  color:rgba(244,238,226,.68);
+  font-size:16px;
+  line-height:1.65;
+}
+
+.evidence-chain{
+  display:grid;
+  grid-template-columns:auto 1fr auto 1fr auto;
+  gap:14px;
+  align-items:center;
+  margin:34px 0 28px;
+}
+
+.evidence-chain span{
+  padding:12px;
+  border:1px solid rgba(214,170,85,.28);
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.18em;
+  white-space:nowrap;
+}
+
+.evidence-chain span b{
+  display:block;
+  margin-top:6px;
+  color:rgba(244,238,226,.62);
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+.evidence-chain i{
+  height:1px;
+  background:repeating-linear-gradient(
+    90deg,
+    rgba(214,170,85,.78) 0 8px,
+    transparent 8px 14px
+  );
+}
+
+.specimen-meta{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  margin:0;
+  background:rgba(214,170,85,.22);
+  border:1px solid rgba(214,170,85,.22);
+}
+
+.specimen-meta div{
+  padding:16px;
+  background:#0b0f10;
+}
+
+.specimen-meta dt{
+  margin-bottom:8px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.2em;
+}
+
+.specimen-meta dd{
+  margin:0;
+  color:rgba(244,238,226,.72);
+  font-size:14px;
+}
+
+.specimen-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px;
+}
+
+.specimen-tags span{
+  padding:8px 10px;
+  border:1px solid rgba(214,170,85,.28);
+  color:rgba(244,238,226,.66);
+  text-transform:uppercase;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+@media(max-width:1000px){
+  .specimen-head,
+  .specimen-ledger{
+    grid-template-columns:1fr;
+  }
+
+  .specimen-card-large{
+    grid-row:auto;
+    min-height:680px;
+  }
+
+  .specimen-meta{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .specimen-section{
+    padding:120px 24px;
+  }
+
+  .evidence-chain{
+    grid-template-columns:1fr;
+  }
+
+  .evidence-chain i{
+    width:1px;
+    height:28px;
+    justify-self:center;
+    background:repeating-linear-gradient(
+      180deg,
+      rgba(214,170,85,.78) 0 8px,
+      transparent 8px 14px
+    );
+  }
+}
+
+
+/* =========================================================
+   SHNK OBJECTS-ONLY STRUCTURE PATCH
+   Fabrication is now integrated into Objects as process evidence.
+========================================================= */
+
+nav{
+  gap:72px;
+}
+
+.object-flow{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:auto 1fr auto 1fr auto;
+  align-items:center;
+  gap:18px;
+  margin:-48px 0 58px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.32em;
+}
+
+.object-flow i{
+  height:1px;
+  background:repeating-linear-gradient(
+    90deg,
+    rgba(214,170,85,.68) 0 10px,
+    transparent 10px 18px
+  );
+}
+
+.specimen-media-stack{
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.specimen-media-stack img{
+  width:100%;
+  max-height:220px;
+}
+
+.specimen-card-note{
+  min-height:360px;
+  border-style:dashed;
+  background:
+    linear-gradient(135deg, rgba(244,238,226,.045), transparent 42%),
+    rgba(10,13,14,.7);
+}
+
+.specimen-card-note .specimen-record{
+  align-self:center;
+}
+
+.specimen-card-note h3{
+  color:rgba(244,238,226,.84);
+}
+
+/* Old fabrication styles can remain in the file, but the fabrication section/nav link is no longer used. */
+
+@media(max-width:900px){
+  nav{
+    gap:28px;
+  }
+
+  .object-flow{
+    grid-template-columns:1fr;
+    margin:-28px 0 42px;
+  }
+
+  .object-flow i{
+    width:1px;
+    height:28px;
+    justify-self:start;
+    margin-left:24px;
+    background:repeating-linear-gradient(
+      180deg,
+      rgba(214,170,85,.68) 0 10px,
+      transparent 10px 18px
+    );
+  }
+
+  .specimen-media-stack{
+    grid-template-columns:1fr;
+  }
+}
+.related-record{
+  margin-top:48px;
+  padding-top:28px;
+  border-top:1px solid rgba(214,170,85,.28);
+}
+
+.related-label{
+  display:block;
+  margin-bottom:18px;
+
+  color:var(--accent);
+
+  text-transform:uppercase;
+  letter-spacing:.24em;
+  font-size:11px;
+  font-weight:800;
+}
+
+.related-link{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:16px 0;
+
+  color:var(--paper);
+  text-decoration:none;
+
+  transition:.25s ease;
+}
+
+.related-link:hover{
+  transform:translateX(6px);
+}
+
+.related-link strong{
+  display:block;
+
+  color:var(--accent);
+
+  letter-spacing:.22em;
+  font-size:11px;
+}
+
+.related-link p{
+  margin:6px 0 0;
+
+  color:var(--paper);
+
+  font-size:20px;
+  font-weight:700;
+}
+
+.record-status{
+  color:var(--accent);
+
+  font-size:12px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.related-description{
+  margin-top:12px;
+
+  max-width:520px;
+
+  color:rgba(244,238,226,.62);
+
+  line-height:1.7;
+}
+.related-record{
+  margin-top:40px;
+  padding-top:28px;
+  border-top:1px solid rgba(0,0,0,.12);
+}
+
+.related-record h4{
+  color:#93634d;
+  font-size:12px;
+  letter-spacing:.22em;
+  margin-bottom:18px;
+}
+
+.related-link{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  text-decoration:none;
+  color:#111;
+
+  padding:14px 0;
+
+  transition:.25s ease;
+}
+
+.related-link:hover{
+  transform:translateX(6px);
+}
+
+.related-link span{
+  color:#93634d;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.22em;
+}
+
+.related-link strong{
+  color:#111;
+  font-size:18px;
+}
+/* HARD HERO ALIGNMENT RESET — keep at very bottom */
+
+.hero{
+  justify-content:flex-start !important;
+}
+
+.hero-copy{
+  position:absolute !important;
+  left:clamp(70px,6vw,115px) !important;
+  top:50% !important;
+  transform:translateY(-43%) !important;
+  max-width:760px !important;
+  text-align:left !important;
+}
+
+.hero-copy .eyebrow,
+.hero-copy h1,
+.hero-copy .lede,
+.hero-copy .hero-link{
+  text-align:left !important;
+}
+
+.hero-copy h1{
+  font-size:clamp(70px,8.4vw,140px) !important;
+  max-width:780px !important;
+}
+
+.hero-copy .lede{
+  max-width:620px !important;
+}
+
+@media(max-width:900px){
+  .hero-copy{
+    position:relative !important;
+    left:auto !important;
+    top:auto !important;
+    transform:none !important;
+    max-width:100% !important;
+  }
+}
+/* OBJECT IMAGE FIT FIX — keep at very bottom */
+
+.specimen-media{
+  width:100%;
+  height:320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  padding:28px;
+  overflow:hidden;
+
+  background:rgba(255,255,255,.025);
+  border-bottom:1px solid rgba(214,170,85,.18);
+}
+
+.specimen-media img{
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  object-position:center;
+  display:block;
+}
+
+.specimen-media-stack{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+  align-items:center;
+}
+
+.specimen-card-large .specimen-media{
+  height:360px;
+}
+
+.specimen-card:not(.specimen-card-large) .specimen-media{
+  height:280px;
+}
+
+@media(max-width:900px){
+  .specimen-media,
+  .specimen-card-large .specimen-media,
+  .specimen-card:not(.specimen-card-large) .specimen-media{
+    height:auto;
+    min-height:260px;
+  }
+
+  .specimen-media-stack{
+    grid-template-columns:1fr;
+  }
+}
+/* OBJECT IMAGE FRAMING FIX — keep at very bottom */
+
+.specimen-media{
+  width:100% !important;
+  height:420px !important;
+  padding:0 !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  overflow:hidden !important;
+  background:rgba(255,255,255,.025);
+  border-bottom:1px solid rgba(214,170,85,.18);
+}
+
+.specimen-media img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  display:block !important;
+}
+
+/* use this on images you want fully visible, like logos */
+.specimen-media.contain-image img,
+.specimen-media-stack img{
+  object-fit:contain !important;
+}
+
+
+/* horizontal/wide presentation for drawing/art objects */
+.specimen-card:has(img[src*="IMG_4638"]) .specimen-media{
+  height:520px !important;
+}
+
+.specimen-card:has(img[src*="IMG_4638"]) .specimen-media img{
+  object-fit:cover !important;
+  object-position:center !important;
+}
+
+/* mobile */
+@media(max-width:900px){
+  .specimen-media,
+  .specimen-card:has(img[src*="IMG_4638"]) .specimen-media{
+    height:320px !important;
+  }
+}
+/* Rotate archive drawing */
+
+/* OBJ-005 drawing rotation lock */
+
+img[src*="IMG_4638"]{
+  transform: rotate(90deg) !important;
+  transition: none !important;
+}
+
+img[src*="IMG_4638"]:hover{
+  transform: rotate(90deg) !important;
+}
+.object-feature{
+  position:relative;
+  overflow:hidden;
+}
+
+.object-feature img{
+  width:100%;
+  height:100%;
+  min-height:420px;
+
+  object-fit:cover;
+  object-position:center;
+
+  display:block;
+
+  margin:0;
+
+  transition:
+    transform .28s ease,
+    filter .28s ease;
+}
+
+.object-feature:hover img{
+  transform:translateY(-6px) scale(1.02);
+
+  filter:
+    drop-shadow(0 24px 40px rgba(0,0,0,.45));
+}
+
+/* =========================================================
+   SHNK OBJECTS IMAGE FINAL FIX
+   Keep this as the LAST block in styles.css.
+   Only affects the Objects/specimen cards.
+========================================================= */
+
+#objects .specimen-card{
+  overflow:hidden !important;
+}
+
+/* shared image frame */
+#objects .specimen-media{
+  width:100% !important;
+  height:clamp(260px, 24vw, 390px) !important;
+  min-height:0 !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:28px !important;
+  overflow:hidden !important;
+
+  background:rgba(255,255,255,.025) !important;
+  border:1px solid rgba(214,170,85,.18) !important;
+}
+
+/* large cards still stay controlled */
+#objects .specimen-card-large .specimen-media{
+  height:clamp(300px, 28vw, 430px) !important;
+}
+
+/* every object image fits inside its frame */
+#objects .specimen-media img{
+  width:100% !important;
+  height:100% !important;
+  max-width:100% !important;
+  max-height:100% !important;
+
+  object-fit:contain !important;
+  object-position:center !important;
+
+  display:block !important;
+  margin:0 !important;
+
+  transform:none !important;
+  transition:
+    transform .25s ease,
+    filter .25s ease !important;
+
+  filter:drop-shadow(0 22px 38px rgba(0,0,0,.46)) !important;
+}
+
+/* hover: lift image slightly, do not blow it up */
+#objects .specimen-card:hover .specimen-media img{
+  transform:translateY(-5px) scale(1.015) !important;
+  filter:
+    drop-shadow(0 28px 46px rgba(0,0,0,.52))
+    drop-shadow(0 0 20px rgba(214,170,85,.14)) !important;
+}
+
+/* OBJ-001: three logos inside one clean panel */
+#objects .specimen-media-stack{
+  display:grid !important;
+  grid-template-columns:.9fr .85fr 1.15fr !important;
+  align-items:center !important;
+  justify-items:center !important;
+  gap:clamp(18px, 3vw, 44px) !important;
+  padding:44px clamp(34px, 5vw, 74px) !important;
+}
+
+/* make each logo sit smaller inside OBJ-001 */
+#objects .specimen-media-stack img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+}
+
+/* individual balance for the 3 logo images */
+#objects .specimen-media-stack img:nth-child(1){
+  max-width:72% !important;
+  max-height:46% !important;
+}
+
+#objects .specimen-media-stack img:nth-child(2){
+  max-width:76% !important;
+  max-height:74% !important;
+}
+
+#objects .specimen-media-stack img:nth-child(3){
+  max-width:92% !important;
+  max-height:52% !important;
+}
+
+/* normal object cards get a bit more breathing room */
+#objects .specimen-card:not(.specimen-card-large) .specimen-media{
+  height:clamp(240px, 22vw, 340px) !important;
+  padding:30px !important;
+}
+
+/* stop older global object-feature rules from affecting this section */
+#objects .object-feature img{
+  min-height:0 !important;
+}
+
+/* mobile: stack OBJ-001 logos cleanly instead of squeezing */
+@media(max-width:900px){
+  #objects .specimen-media,
+  #objects .specimen-card-large .specimen-media,
+  #objects .specimen-card:not(.specimen-card-large) .specimen-media{
+    height:300px !important;
+    padding:24px !important;
+  }
+
+  #objects .specimen-media-stack{
+    height:auto !important;
+    min-height:520px !important;
+    grid-template-columns:1fr !important;
+    gap:28px !important;
+  }
+
+  #objects .specimen-media-stack img:nth-child(1),
+  #objects .specimen-media-stack img:nth-child(2),
+  #objects .specimen-media-stack img:nth-child(3){
+    max-width:78% !important;
+    max-height:150px !important;
+  }
+}
+/* ==========================================
+   OBJECT IMAGE FINAL PATCH
+========================================== */
+
+.object-feature{
+  border:2px solid rgba(214,170,85,.34);
+  overflow:hidden;
+  background:#090b0b;
+}
+
+.object-feature img{
+  width:100%;
+  height:520px;
+
+  display:block;
+
+  object-fit:contain;
+  object-position:center;
+
+  padding:40px;
+  margin:0;
+
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.45));
+
+  transition:
+    transform .28s ease,
+    filter .28s ease;
+}
+
+.object-feature:hover{
+  transform:translateY(-8px);
+  border-color:rgba(214,170,85,.8);
+}
+
+.object-feature:hover img{
+  transform:translateY(-6px);
+}
+
+/* OBJ-001 Brand System */
+.object-feature:nth-child(1) img{
+  padding:70px;
+}
+
+/* OBJ-002 Signature */
+.object-feature:nth-child(2) img{
+  padding:30px;
+}
+
+/* OBJ-003 Vessel */
+.object-feature:nth-child(3) img{
+  padding:12px;
+  object-fit:cover;
+}
+
+/* OBJ-004 Book */
+.object-feature:nth-child(4) img{
+  padding:12px;
+  object-fit:cover;
+}
+/* FINAL OBJECT IMAGE FIX */
+
+.specimen-card .specimen-media{
+  height:520px;
+  padding:0;
+  overflow:hidden;
+}
+
+.specimen-card .specimen-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  padding:0;
+  margin:0;
+  transform:none;
+}
+
+/* OBJ-001: keep logo system contained */
+.specimen-card:nth-child(1) .specimen-media{
+  padding:55px;
+}
+
+.specimen-card:nth-child(1) .specimen-media img{
+  width:auto;
+  height:70%;
+  object-fit:contain;
+}
+
+/* OBJ-003 + OBJ-004: two-image cards */
+.specimen-card:nth-child(3) .specimen-media,
+.specimen-card:nth-child(4) .specimen-media{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  padding:18px;
+}
+
+.specimen-card:nth-child(3) .specimen-media img,
+.specimen-card:nth-child(4) .specimen-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* OBJ-005: rotate composition */
+.specimen-card:nth-child(5) .specimen-media img{
+  transform:rotate(-90deg) scale(1.18);
+  object-fit:contain;
+}
+
+/* Hover */
+.specimen-card:hover .specimen-media img{
+  transform:translateY(-5px);
+}
+
+.specimen-card:nth-child(5):hover .specimen-media img{
+  transform:rotate(-90deg) scale(1.18) translateX(-5px);
+}
+/* OBJ-003 + OBJ-004 */
+
+.object-feature .specimen-media,
+.object-feature .object-images{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  height:520px;
+  width:100%;
+
+  gap:16px;
+  padding:16px;
+}
+
+.object-feature .specimen-media img,
+.object-feature .object-images img{
+  width:100%;
+  height:100%;
+
+  min-width:0;
+  min-height:0;
+
+  object-fit:cover;
+
+  display:block;
+}
+/* ==========================================
+   OBJECTS IMAGE SIZE FIX
+========================================== */
+
+.specimen-media{
+  height:520px;
+  overflow:hidden;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+}
+
+.specimen-media img{
+  width:100%;
+  height:100%;
+
+  object-fit:contain;
+  object-position:center;
+
+  display:block;
+}
+
+/* OBJ-003 */
+.specimen-card:nth-of-type(3) .specimen-media img{
+  width:90%;
+  height:90%;
+  transform:scale(1.25);
+}
+
+/* OBJ-004 */
+.specimen-card:nth-of-type(4) .specimen-media img{
+  width:90%;
+  height:90%;
+  transform:scale(1.25);
+}
+
+/* OBJ-005 rotate composition */
+.specimen-card:nth-of-type(5) .specimen-media img{
+  transform:rotate(-90deg) scale(1.4);
+}
+
+/* hover */
+.specimen-card:hover .specimen-media img{
+  transition:transform .3s ease;
+}
+
+.specimen-card:nth-of-type(3):hover .specimen-media img{
+  transform:scale(1.3) translateY(-4px);
+}
+
+.specimen-card:nth-of-type(4):hover .specimen-media img{
+  transform:scale(1.3) translateY(-4px);
+}
+
+.specimen-card:nth-of-type(5):hover .specimen-media img{
+  transform:rotate(-90deg) scale(1.45) translateX(-4px);
+}
+/* ==========================================
+   OBJ-003 / OBJ-004 SOLID IMAGE FIT
+   Keep this as the last CSS block
+========================================== */
+
+#objects .specimen-card:nth-of-type(3) .specimen-media,
+#objects .specimen-card:nth-of-type(4) .specimen-media{
+  height:460px !important;
+  padding:18px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  overflow:hidden !important;
+
+  background:
+    radial-gradient(circle at center, rgba(214,170,85,.08), transparent 62%),
+    #0b0f0f !important;
+}
+
+#objects .specimen-card:nth-of-type(3) .specimen-media img,
+#objects .specimen-card:nth-of-type(4) .specimen-media img{
+  width:100% !important;
+  height:100% !important;
+
+  max-width:none !important;
+  max-height:none !important;
+
+  object-fit:cover !important;
+  object-position:center !important;
+
+  padding:0 !important;
+  margin:0 !important;
+
+  transform:none !important;
+
+  border:1px solid rgba(214,170,85,.16);
+}
+
+/* Slightly better crop for OBJ-004 */
+#objects .specimen-card:nth-of-type(4) .specimen-media img{
+  object-position:center 42% !important;
+}
+
+/* Hover */
+#objects .specimen-card:nth-of-type(3):hover .specimen-media img,
+#objects .specimen-card:nth-of-type(4):hover .specimen-media img{
+  transform:scale(1.035) translateY(-4px) !important;
+}
+/* ==========================================
+   OBJ-005 DRAWING STUDY
+========================================== */
+
+#objects .specimen-card:nth-of-type(5) .specimen-media{
+  height:520px !important;
+  overflow:hidden !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:24px !important;
+}
+
+#objects .specimen-card:nth-of-type(5) .specimen-media img{
+  width:auto !important;
+  height:85% !important;
+
+  object-fit:contain !important;
+
+  transform:rotate(-90deg) scale(1.75) !important;
+  transform-origin:center center !important;
+
+  transition:transform .3s ease !important;
+}
+
+#objects .specimen-card:nth-of-type(5):hover .specimen-media img{
+  transform:rotate(-90deg) scale(1.82) translateX(-4px) !important;
+}
+/* ==========================================
+   SHNK OBJECT REAL PHOTO + MATERIAL MODAL PATCH
+   Add this at the very bottom of styles.css
+========================================== */
+
+/* OBJ-003 and OBJ-004: real object photo panels */
+#objects .specimen-card:nth-of-type(3) .specimen-media-duo,
+#objects .specimen-card:nth-of-type(4) .specimen-media-duo{
+  height:520px !important;
+  padding:18px !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:18px !important;
+  overflow:hidden !important;
+  background:radial-gradient(circle at center, rgba(214,170,85,.08), transparent 62%), #0b0f0f !important;
+}
+
+#objects .specimen-card:nth-of-type(3) .specimen-media-duo img,
+#objects .specimen-card:nth-of-type(4) .specimen-media-duo img{
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:1px solid rgba(214,170,85,.16) !important;
+  transform:none !important;
+  transition:transform .3s ease, filter .3s ease !important;
+}
+
+#objects .specimen-card:nth-of-type(3):hover .specimen-media-duo img,
+#objects .specimen-card:nth-of-type(4):hover .specimen-media-duo img{
+  transform:scale(1.035) translateY(-4px) !important;
+}
+
+/* OBJ-005: hand drawing photo rotated left and fitted */
+#objects .specimen-card:nth-of-type(5) .specimen-media-drawing{
+  height:520px !important;
+  padding:24px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+  background:radial-gradient(circle at center, rgba(214,170,85,.08), transparent 62%), #0b0f0f !important;
+}
+
+#objects .specimen-card:nth-of-type(5) .specimen-media-drawing img{
+  width:auto !important;
+  height:86% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:rotate(-90deg) scale(1.75) !important;
+  transform-origin:center center !important;
+  transition:transform .3s ease !important;
+}
+
+#objects .specimen-card:nth-of-type(5):hover .specimen-media-drawing img{
+  transform:rotate(-90deg) scale(1.82) translateX(-4px) !important;
+}
+
+/* Material Archive modal cards */
+.material-modal-card{
+  border:1px solid rgba(214,170,85,.22);
+  padding:24px;
+  background:rgba(255,255,255,.02);
+}
+
+.material-record-id{
+  display:inline-block;
+
+  margin-bottom:14px;
+  padding:6px 10px;
+
+  border:1px solid rgba(214,170,85,.35);
+
+  font-size:.72rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+
+  color:var(--gold);
+}
+
+.material-modal-card h3{
+  margin:0 0 12px;
+}
+
+.material-modal-card p{
+  margin:0;
+  opacity:.8;
+  line-height:1.6;
+}
+/* ==========================================
+   MATERIAL ARCHIVE THUMBNAIL FIX
+========================================== */
+
+.study-module[data-study="materials"]{
+  justify-content:space-between;
+}
+
+.study-module[data-study="materials"] .material-archive-preview{
+  min-height:260px;
+  margin-top:34px;
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+
+  border:1px solid rgba(5,6,6,.12);
+  padding:18px;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(214,170,85,.10), transparent 34%),
+    rgba(255,255,255,.22);
+}
+
+.material-archive-preview span{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  min-height:64px;
+  padding:12px 14px;
+
+  border:1px solid rgba(5,6,6,.12);
+  background:rgba(244,238,226,.55);
+
+  color:rgba(5,6,6,.68);
+  font-size:12px;
+  line-height:1.35;
+}
+
+.material-archive-preview span b{
+  display:block;
+  margin-bottom:5px;
+
+  color:#93634d;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.22em;
+}
+/* MATERIALS CARD — match other study cards */
+
+.study-module[data-study="materials"]{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:space-between !important;
+}
+
+.study-module[data-study="materials"] .material-archive-preview{
+  min-height:205px !important;
+  margin-top:48px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  border:1px solid rgba(5,6,6,.12) !important;
+  background:rgba(244,238,226,.45) !important;
+}
+
+.study-module[data-study="materials"] .material-archive-preview::before{
+  content:"MAT";
+  font-size:72px;
+  font-weight:950;
+  letter-spacing:.22em;
+  color:#050606;
+}
+
+.study-module[data-study="materials"] .material-archive-preview span{
+  display:none !important;
+}
+.material-system-preview{
+  min-height:180px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+
+  border:1px solid rgba(5,6,6,.12);
+  background:#f4f1ea;
+}
+
+.material-system-preview span{
+  color:#93634d;
+
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:.22em;
+}
+.study-modal-content{
+  position:relative;
+}
+
+.study-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+
+  width:48px;
+  height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:none;
+  background:none;
+
+  color:#f4f1ea;
+  font-size:42px;
+  line-height:1;
+  font-weight:300;
+
+  cursor:pointer;
+  z-index:9999;
+
+  transition:all .2s ease;
+}
+
+.study-close:hover{
+  opacity:.7;
+  transform:scale(1.08);
+}
+/* MATERIAL ARCHIVE MODAL */
+
+#studyModal.active{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+
+  overflow-y:auto;
+  padding:60px 0;
+}
+
+.study-modal-content{
+  position:relative;
+  max-width:1180px;
+  width:82vw;
+  padding:64px 72px;
+  background:#f4f1ea;
+  color:#0b0b0a;
+  border:1px solid rgba(150,100,75,.25);
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
+}
+
+.study-close{
+  position:absolute;
+  top:28px;
+  right:34px;
+  background:none;
+  border:0;
+  color:#8f5f49;
+  font-size:56px;
+  line-height:1;
+  cursor:pointer;
+  z-index:50;
+}
+
+.study-close:hover{
+  opacity:.65;
+}
+
+#studyKicker{
+  color:#8f5f49;
+  letter-spacing:.26em;
+  font-weight:900;
+}
+
+#studyTitle{
+  font-size:clamp(56px,5vw,84px);
+  line-height:.9;
+  margin-bottom:16px;
+}
+
+#studyText{
+  max-width:780px;
+  color:#6b6862;
+  font-size:1.15rem;
+  line-height:1.65;
+}
+
+/* MATERIAL ARCHIVE — scalable layout */
+
+.material-archive-panel{
+  margin-top:42px;
+  padding:28px;
+
+  border:1px solid rgba(5,6,6,.12);
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:28px;
+
+  max-height:62vh;
+  overflow-y:auto;
+}
+
+.material-specimen{
+  min-width:0;
+}
+
+.material-specimen img{
+  width:100%;
+  aspect-ratio:1 / .78;
+  height:auto;
+
+  object-fit:cover;
+  display:block;
+
+  margin-bottom:20px;
+}
+
+.material-specimen-info{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:20px;
+
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(5,6,6,.12);
+}
+
+.material-specimen-info span{
+  color:#93634d;
+  font-size:clamp(24px,2vw,34px);
+  font-weight:950;
+  letter-spacing:.2em;
+  line-height:1.15;
+}
+
+.material-specimen-info h4{
+  margin:0;
+
+  color:#93634d;
+  font-size:clamp(15px,1.2vw,20px);
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  line-height:1.45;
+}
+
+.material-used{
+  margin-top:18px;
+}
+
+.material-used small{
+  display:block;
+  margin-bottom:10px;
+
+  color:#93634d;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+
+.material-used strong{
+  color:#93634d;
+  font-size:14px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* make the whole modal fit better */
+.study-modal-content{
+  width:min(1180px,88vw);
+  max-height:88vh;
+  overflow-y:auto;
+  padding:56px 64px;
+}
+
+#studyTitle{
+  font-size:clamp(54px,5.8vw,92px);
+  line-height:.9;
+}
+
+@media(max-width:800px){
+  .study-modal-content{
+    width:94vw;
+    padding:44px 24px;
+  }
+
+  .material-archive-panel{
+    grid-template-columns:1fr;
+    max-height:none;
+  }
+}
+
+/* ==========================================
+   SHNK OBJECT CARD SIZING FIX
+   Add this to the bottom of styles.css
+========================================== */
+
+/* Let object cards grow naturally instead of clipping text/images */
+#objects .specimen-card{
+  height:auto !important;
+  min-height:0 !important;
+  overflow:visible !important;
+}
+
+#objects .specimen-record{
+  overflow:visible !important;
+}
+
+/* Shared media behavior */
+#objects .specimen-media{
+  overflow:hidden !important;
+}
+
+#objects .specimen-media img{
+  display:block !important;
+}
+
+/* OBJ-001 — brand marks should be shorter and centered */
+#objects .object-brand-card .specimen-media-stack{
+  height:360px !important;
+  min-height:360px !important;
+  padding:42px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:72px !important;
+}
+
+#objects .object-brand-card .specimen-media-stack img{
+  width:auto !important;
+  height:auto !important;
+  max-width:26% !important;
+  max-height:180px !important;
+  object-fit:contain !important;
+}
+
+/* OBJ-002 — trophy/signature hero image */
+#objects .object-trophy-card .specimen-media{
+  height:460px !important;
+  padding:36px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+#objects .object-trophy-card .specimen-media img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+}
+
+/* OBJ-003 — vessel photos need tall documentary space */
+#objects .object-vessel-card .specimen-media-duo{
+  height:640px !important;
+  padding:24px !important;
+  gap:24px !important;
+  grid-template-columns:1fr 1fr !important;
+}
+
+#objects .object-vessel-card .specimen-media-duo img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center !important;
+}
+
+/* OBJ-004 — book photos; protect the cover and page crop */
+#objects .object-book-card .specimen-media-duo{
+  height:560px !important;
+  padding:24px !important;
+  gap:24px !important;
+  grid-template-columns:1fr 1fr !important;
+}
+
+#objects .object-book-card .specimen-media-duo img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center !important;
+}
+
+#objects .object-book-card .specimen-media-duo img:first-child{
+  object-position:center 42% !important;
+}
+
+#objects .object-book-card .specimen-media-duo img:nth-child(2){
+  object-position:center 36% !important;
+}
+
+/* OBJ-005 — drawing study stays contained after rotation */
+#objects .object-drawing-card .specimen-media-drawing{
+  height:520px !important;
+  padding:24px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+#objects .object-drawing-card .specimen-media-drawing img{
+  width:auto !important;
+  height:86% !important;
+  max-width:none !important;
+  object-fit:contain !important;
+  transform:rotate(-90deg) scale(1.55) !important;
+  transform-origin:center center !important;
+}
+
+#objects .object-drawing-card:hover .specimen-media-drawing img{
+  transform:rotate(-90deg) scale(1.62) translateX(-4px) !important;
+}
+
+/* Stop big titles from getting cut off on narrower screens */
+#objects .specimen-record h3{
+  overflow-wrap:break-word !important;
+  word-break:normal !important;
+}
+
+@media(max-width:900px){
+  #objects .object-brand-card .specimen-media-stack,
+  #objects .object-trophy-card .specimen-media,
+  #objects .object-vessel-card .specimen-media-duo,
+  #objects .object-book-card .specimen-media-duo,
+  #objects .object-drawing-card .specimen-media-drawing{
+    height:auto !important;
+    min-height:360px !important;
+  }
+
+  #objects .object-vessel-card .specimen-media-duo,
+  #objects .object-book-card .specimen-media-duo{
+    grid-template-columns:1fr !important;
+  }
+
+  #objects .object-vessel-card .specimen-media-duo img,
+  #objects .object-book-card .specimen-media-duo img{
+    height:420px !important;
+  }
+}
+/* FINAL CLOSE BUTTON POSITION FIX */
+
+.egg-content,
+.record-content,
+.player-card{
+  position:relative !important;
+}
+
+.egg-close,
+.record-close{
+  position:absolute !important;
+  top:24px !important;
+  right:24px !important;
+
+  width:auto !important;
+  height:auto !important;
+
+  background:none !important;
+  border:0 !important;
+
+  color:#d6aa55 !important;
+  font-size:46px !important;
+  line-height:1 !important;
+
+  z-index:99999 !important;
+  cursor:pointer;
+}
+
+.egg-close:hover,
+.record-close:hover{
+  opacity:.65;
+  transform:scale(1.06);
+}
+/* MATERIAL ARCHIVE — grouped by object */
+
+.material-grouped-archive{
+  margin-top:42px;
+  display:grid;
+  gap:34px;
+}
+
+.material-project-group{
+  border:1px solid rgba(5,6,6,.12);
+  padding:28px;
+}
+
+.material-group-heading{
+  margin-bottom:24px;
+}
+
+.material-group-heading span{
+  display:block;
+  margin-bottom:8px;
+
+  color:#93634d;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+.material-group-heading h3{
+  margin:0;
+
+  color:#111;
+  font-size:clamp(28px,3vw,44px);
+  line-height:1;
+}
+
+.material-group-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:24px;
+}
+
+.material-specimen img{
+  width:100%;
+  aspect-ratio:1 / .72;
+  object-fit:cover;
+  display:block;
+  margin-bottom:18px;
+}
+
+.material-specimen-info{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:18px;
+  align-items:start;
+}
+
+.material-specimen-info span{
+  color:#93634d;
+  font-size:clamp(22px,2vw,32px);
+  font-weight:950;
+  letter-spacing:.18em;
+  line-height:1.15;
+}
+
+.material-specimen-info h4{
+  margin:0;
+  color:#93634d;
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  line-height:1.45;
+}
