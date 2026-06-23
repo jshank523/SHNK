@@ -260,12 +260,8 @@ nav a:hover::after{
       transparent 20%
     );
 }
-.hero-copy{
-  position:relative;
-  z-index:6;
-  max-width:770px;
-
-  backdrop-filter:blur(1px);
+h1{
+  font-size:clamp(64px,10vw,150px);
 }
 
 .eyebrow{
